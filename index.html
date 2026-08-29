@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>博识堂 · 托管 + 文化课一站式 | 报文化课送两个月晚自习</title>
+<meta name="description" content="博识堂托管+文化课一站式，旁邻八中。报一科文化课¥2600/学期，送两个月晚自习。26届中考一二三中上线率93.4%。">
+<link rel="icon" href="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/logo.jpg" type="image/jpeg">
+<link rel="shortcut icon" href="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/logo.jpg" type="image/jpeg">
+<style>
+  :root{
+    --green:#15a363;
+    --green-2:#0f8049;
+    --green-3:#0a6638;
+    --green-tint:#ecfaf3;
+    --green-tint-2:#d9f3e4;
+    --ink:#1f2421;
+    --ink-2:#5a615c;
+    --line:#e3ece6;
+    --paper:#ffffff;
+    --cream:#f7fbf8;
+    --warm:#ea7a3a;
+    --radius:12px;
+    --shadow:0 6px 20px rgba(15,128,73,.08);
+    --shadow-lg:0 12px 34px rgba(15,128,73,.14);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"Microsoft YaHei","PingFang SC","Hiragino Sans GB",system-ui,sans-serif;
+    color:var(--ink);background:var(--paper);line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{display:block;max-width:100%}
+  a{text-decoration:none;color:inherit}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+
+  /* ===== 顶部 ===== */
+  header.top{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:60px;gap:14px}
+  .brand{display:flex;align-items:center;gap:10px;flex:none}
+  .brand .logo-img{height:34px;width:auto}
+  .brand .name{font-size:18px;font-weight:800;letter-spacing:1px}
+  .brand .name em{color:var(--green);font-style:normal;margin:0 2px}
+  .nav ul{display:flex;gap:2px;list-style:none}
+  .nav ul a{display:block;padding:7px 12px;border-radius:8px;font-size:14px;color:var(--ink-2);transition:background .2s,color .2s}
+  .nav ul a:hover{background:var(--green-tint);color:var(--green-2)}
+  .nav .cta{background:var(--green);color:#fff!important;font-weight:700;padding:8px 16px;border-radius:8px;font-size:14px;flex:none}
+  .nav .cta:hover{background:var(--green-2)}
+
+  /* ===== Hero ===== */
+  .hero{background:linear-gradient(165deg,var(--green-tint) 0%,#fff 52%);padding:28px 0 48px}
+  .hero .wrap{display:grid;grid-template-columns:1.15fr 1fr;gap:28px;align-items:center}
+  .hero .kicker{display:inline-block;font-size:13px;letter-spacing:2px;color:var(--green-2);border:1px solid var(--green-tint-2);padding:5px 12px;border-radius:20px;background:#fff;margin-bottom:14px}
+  .hero h1{font-size:42px;line-height:1.22;font-weight:900;letter-spacing:2px}
+  .hero h1 span{color:var(--green)}
+  .hero .slogan{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 14px;margin-top:10px;font-size:23px;font-weight:900;letter-spacing:4px;color:var(--green-2)}
+  .hero .slogan span{white-space:nowrap}
+  .hero .slogan .dot{color:var(--green);font-size:20px;font-weight:700}
+  .hero .slogan .en{font-size:12px;font-weight:600;letter-spacing:2px;color:var(--ink-2);margin-left:6px}
+  .hero .sub{font-size:16px;margin-top:12px;color:var(--ink-2);max-width:520px}
+  .hero .badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+  .hero .badges span{font-size:13px;padding:6px 12px;border-radius:20px;background:#fff;border:1px solid var(--green-tint-2);color:var(--ink-2)}
+  .hero .badges b{color:var(--green-2)}
+  .hero .btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+  .btn{display:inline-block;padding:13px 24px;border-radius:10px;font-weight:700;font-size:15px;transition:all .2s}
+  .btn.solid{background:var(--green);color:#fff;box-shadow:var(--shadow)}
+  .btn.solid:hover{background:var(--green-2);transform:translateY(-1px)}
+  .btn.ghost{border:1.5px solid var(--green);color:var(--green-2);background:#fff}
+  .btn.ghost:hover{background:var(--green-tint)}
+
+  /* Hero 2600 优惠卡 */
+  .hero-offer{
+    display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+    background:linear-gradient(135deg,var(--green) 0%,var(--green-2) 100%);
+    color:#fff;padding:22px 24px;border-radius:14px;box-shadow:var(--shadow-lg);
+    position:relative;overflow:hidden;
+  }
+  .hero-offer::before{content:"";position:absolute;right:-30px;top:-30px;width:120px;height:120px;background:rgba(255,255,255,.08);border-radius:50%}
+  .ho-l{flex:1;min-width:220px}
+  .ho-tag{display:inline-block;font-size:12px;letter-spacing:1px;background:rgba(255,255,255,.18);padding:3px 10px;border-radius:20px;margin-bottom:8px}
+  .ho-title{font-size:20px;font-weight:900;letter-spacing:1px}
+  .ho-sub{font-size:13px;opacity:.92;margin-top:4px}
+  .ho-r{text-align:center;background:rgba(255,255,255,.14);padding:10px 18px;border-radius:10px;flex:none}
+  .ho-price{font-size:14px;font-weight:600}
+  .ho-price b{font-size:34px;font-weight:900;margin:0 2px}
+  .ho-unit{font-size:12px;opacity:.85}
+  .ho-more{font-size:12px;margin-top:4px;letter-spacing:1px;opacity:.95}
+
+  /* ===== 区块通用 ===== */
+  section .wrap{padding:48px 20px}
+  .sec-head{text-align:center;max-width:680px;margin:0 auto 28px}
+  .sec-head .tag{display:inline-block;font-size:12px;letter-spacing:2px;color:var(--green-2);background:var(--green-tint);padding:4px 12px;border-radius:20px;margin-bottom:10px}
+  .sec-head h2{font-size:28px;font-weight:900;letter-spacing:1px}
+  .sec-head p{color:var(--ink-2);margin-top:6px;font-size:15px}
+
+  /* ===== 地址条 ===== */
+  .loc-bar{
+    display:flex;align-items:center;gap:10px;margin:0 auto;max-width:720px;
+    background:linear-gradient(135deg,var(--green-tint) 0%,#fff 65%);
+    border:1.5px solid var(--green);border-radius:30px;
+    padding:12px 20px;font-size:15px;color:var(--ink-2);box-shadow:var(--shadow);
+  }
+  .loc-bar b{color:var(--green-2);font-weight:800}
+  .loc-bar .pin{font-size:20px}
+  .loc-bar .loc-txt{flex:1}
+  .nav-btn{
+    flex:none;margin-left:12px;background:var(--green);color:#fff;font-weight:700;
+    font-size:14px;padding:11px 20px;border-radius:20px;white-space:nowrap;
+    box-shadow:var(--shadow);transition:background .2s;cursor:pointer;border:none;
+  }
+  .nav-btn:hover{background:var(--green-2)}
+  @media(max-width:600px){.loc-bar{flex-wrap:wrap;gap:10px}.loc-bar .loc-txt{width:100%}.nav-btn{margin-left:0;width:100%;text-align:center}}
+  /* 图片点击放大 */
+  .zoomable{cursor:zoom-in}
+  .lb-mask{position:fixed;inset:0;background:rgba(0,0,0,.88);display:none;z-index:1000;align-items:center;justify-content:center;padding:24px}
+  .lb-mask.show{display:flex}
+  .lb-mask img{max-width:100%;max-height:92vh;border-radius:8px;box-shadow:0 10px 40px rgba(0,0,0,.5);background:#fff;transition:transform .25s ease;cursor:zoom-in;user-select:none;-webkit-user-select:none}
+  .lb-mask img.zoomed{transform:scale(1.9);cursor:zoom-out}
+  .lb-close{position:absolute;top:12px;right:16px;color:#fff;font-size:38px;line-height:1;cursor:pointer;background:none;border:none;padding:4px 10px;z-index:2}
+  .lb-prev,.lb-next{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.16);color:#fff;font-size:28px;line-height:1;border:none;cursor:pointer;z-index:2;display:flex;align-items:center;justify-content:center;padding:0}
+  .lb-prev:active,.lb-next:active{background:rgba(255,255,255,.32)}
+  .lb-prev{left:10px}
+  .lb-next{right:10px}
+  .lb-counter{position:absolute;top:14px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.9);font-size:13px;background:rgba(0,0,0,.45);padding:4px 14px;border-radius:20px;z-index:2}
+  .lb-tip{position:absolute;bottom:14px;left:0;right:0;text-align:center;color:rgba(255,255,255,.6);font-size:12px;z-index:2;pointer-events:none}
+  /* 导航选择弹层 */
+  .nav-sheet-mask{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;z-index:999;align-items:flex-end;justify-content:center}
+  .nav-sheet-mask.show{display:flex}
+  .nav-sheet{background:#fff;width:100%;max-width:460px;border-radius:18px 18px 0 0;padding:18px 16px calc(16px + env(safe-area-inset-bottom));animation:navUp .25s ease}
+  @keyframes navUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+  .nav-sheet h4{margin:0 0 4px;font-size:17px;font-weight:800;color:var(--ink)}
+  .nav-sheet .nav-tip{margin:0 0 12px;font-size:12px;color:var(--ink-2)}
+  .nav-opt{display:flex;align-items:center;gap:12px;padding:13px 10px;border-radius:12px;text-decoration:none;color:var(--ink);border:1px solid var(--line);margin-bottom:10px;transition:background .15s}
+  .nav-opt:active{background:var(--green-tint)}
+  .nav-emoji{font-size:22px;width:30px;text-align:center}
+  .nav-meta{flex:1;display:flex;flex-direction:column}
+  .nav-meta b{font-size:15px}
+  .nav-meta i{font-size:12px;color:var(--ink-2);font-style:normal}
+  .nav-arrow{color:var(--ink-2);font-size:20px}
+  .nav-close{width:100%;text-align:center;padding:12px;margin-top:2px;border:none;background:var(--green-tint);color:var(--green-2);font-weight:700;border-radius:12px;font-size:15px}
+  @media(min-width:600px){.nav-sheet-mask{align-items:center}.nav-sheet{border-radius:18px}}
+
+  /* ===== 服务 ===== */
+  .serv{background:#fff}
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .card{background:#fff;border:1.5px solid var(--line);border-radius:var(--radius);padding:20px 18px;position:relative;box-shadow:var(--shadow);display:flex;flex-direction:column}
+  .card.hot{border:2px solid var(--green);background:linear-gradient(180deg,var(--green-tint) 0%,#fff 60%)}
+  .card .flag{position:absolute;top:-10px;right:14px;background:var(--green);color:#fff;font-size:11px;padding:3px 10px;border-radius:20px;font-weight:700;letter-spacing:1px}
+  .card.hot .flag{background:var(--warm)}
+  .card h3{font-size:17px;font-weight:800;margin-bottom:4px}
+  .card .time{font-size:12px;color:var(--ink-2);margin-bottom:10px}
+  .card .price{font-size:13px;color:var(--ink-2);margin-bottom:10px}
+  .card .price b{font-size:26px;color:var(--green-2);font-weight:900;letter-spacing:0}
+  .card.hot .price b{color:var(--warm)}
+  .card .price small{font-size:12px;color:#999;font-weight:400}
+  .card ul{list-style:none;font-size:13px;color:var(--ink-2);margin-top:auto}
+  .card ul li{padding:4px 0;border-top:1px dashed var(--line)}
+  .card ul li:first-child{border-top:none}
+  .card ul li b{color:var(--green-2)}
+  .card.hot ul li b{color:var(--warm)}
+  .note{text-align:center;margin-top:18px;font-size:12px;color:#999}
+
+  /* ===== 环境 ===== */
+  .env{background:var(--cream)}
+  .video-card{position:relative;border-radius:14px;overflow:hidden;box-shadow:var(--shadow-lg);margin-bottom:16px;background:#000}
+  .video-card video{width:100%;display:block;max-height:420px;background:#000}
+  .video-cap{position:absolute;top:10px;left:12px;background:rgba(0,0,0,.55);color:#fff;font-size:13px;padding:5px 12px;border-radius:20px;z-index:1}
+  .env-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+  .env-item{position:relative;border-radius:var(--radius);overflow:hidden}
+  .env-item img{width:100%;height:170px;object-fit:cover;transition:transform .4s}
+  .env-item:hover img{transform:scale(1.05)}
+  .env-item figcaption{position:absolute;left:0;right:0;bottom:0;padding:24px 10px 8px;background:linear-gradient(transparent,rgba(15,128,73,.85));color:#fff;font-size:12px}
+
+  /* ===== 伙食 ===== */
+  .meal{background:#fff}
+  .meal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .food-card{border-radius:var(--radius);overflow:hidden;background:#fff;box-shadow:var(--shadow)}
+  .food-card .shot{width:100%;height:160px;object-fit:cover}
+  .food-card .cap{padding:10px 14px;font-size:14px;color:var(--ink-2)}
+  .food-card .cap b{color:var(--green-2);font-weight:800;margin-right:4px}
+  .kitchen-row{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:18px}
+  .kitchen-row img{width:100%;height:90px;object-fit:cover;border-radius:8px}
+  .kitchen-note{text-align:center;margin:14px 0 0;font-size:14px;color:var(--ink-2)}
+  .kitchen-note b{color:var(--green-2)}
+
+  /* ===== 喜报 ===== */
+  .ach{background:var(--cream)}
+  .ach-wrap{display:grid;grid-template-columns:1fr 1.2fr;gap:24px;align-items:center}
+  .ach-img{border-radius:12px;overflow:hidden;box-shadow:var(--shadow-lg)}
+  .ach-img img{width:100%;max-height:420px;object-fit:contain;background:#fff}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .stat{background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:14px 10px;text-align:center;box-shadow:var(--shadow)}
+  .stat .v{font-size:24px;font-weight:900;color:var(--green-2);line-height:1.15}
+  .stat .l{font-size:12px;color:var(--ink-2);margin-top:3px}
+  .stat.wide{grid-column:1/-1;background:linear-gradient(120deg,var(--green),var(--green-2));color:#fff;border:none}
+  .stat.wide .v{color:#fff;font-size:28px}
+  .stat.wide .l{color:rgba(255,255,255,.9)}
+  .ach-note{margin-top:10px;font-size:12px;color:#999;text-align:center}
+
+  /* ===== 优惠 ===== */
+  .promo{background:#fff}
+  .offer-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .offer{border:1.5px solid var(--line);border-radius:var(--radius);padding:20px;background:#fff;box-shadow:var(--shadow)}
+  .offer .t{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+  .offer .t .num{width:32px;height:32px;border-radius:8px;background:var(--green-tint);color:var(--green-2);font-weight:900;display:flex;align-items:center;justify-content:center;font-size:14px}
+  .offer h3{font-size:17px;font-weight:800}
+  .offer p{font-size:13px;color:var(--ink-2);margin-bottom:8px}
+  .offer .rows{font-size:13px;color:var(--ink-2);border-top:1px dashed var(--line);margin-top:8px;padding-top:8px}
+  .offer .rows div{padding:3px 0}
+  .offer .rows b{color:var(--green-2)}
+  .value{grid-column:1/-1}
+  .value .v-line{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dashed var(--line);font-size:14px;gap:10px}
+  .value .v-line:last-of-type{border-bottom:none}
+  .value .v-line span{color:var(--ink-2)}
+  .value b{color:var(--green-2);flex:none}
+  .value .save{color:var(--warm)!important;font-weight:900;font-size:16px}
+  .cmp{font-size:12px;color:#999;margin-top:6px;text-align:right}
+
+  /* ===== 报名 ===== */
+  .reg{background:var(--cream)}
+  .reg-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:24px;align-items:start}
+  .reg-info h3{font-size:20px;font-weight:900;margin-bottom:8px}
+  .reg-info p{color:var(--ink-2);margin-bottom:12px;font-size:14px}
+  .reg-points{list-style:none;font-size:14px;color:var(--ink)}
+  .reg-points li{padding:7px 0;border-top:1px dashed var(--line);display:flex;gap:8px;align-items:flex-start}
+  .reg-points li:first-child{border-top:none}
+  .reg-points li::before{content:"✓";color:var(--green-2);font-weight:900;flex:none}
+  .reg-form{background:#fff;border:1.5px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
+  .embed-head{font-size:14px;font-weight:700;padding:12px 18px;background:var(--green-tint);border-bottom:1px solid var(--line);color:var(--green-3)}
+  .reg-form iframe{width:100%;height:540px;border:0;display:block}
+  .embed-fallback{font-size:12px;color:#999;padding:8px 18px;border-top:1px solid var(--line)}
+  .embed-fallback a{color:var(--green-2);font-weight:700}
+  .qr-row{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:18px}
+  .qr-card{background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:10px;box-shadow:var(--shadow);width:160px;text-align:center}
+  .qr-card img{width:100%;aspect-ratio:1/1;object-fit:contain;border-radius:6px}
+  .qr-card div{font-size:12px;color:var(--ink-2);margin-top:6px}
+
+  /* ===== 底部 ===== */
+  footer{background:#0a6638;color:rgba(255,255,255,.7);text-align:center;padding:18px 20px;font-size:12px}
+
+  @media(max-width:880px){
+    .nav ul{display:none}
+    .hero .wrap{grid-template-columns:1fr}
+    .cards{grid-template-columns:repeat(2,1fr)}
+    .env-grid{grid-template-columns:repeat(2,1fr)}
+    .meal-grid{grid-template-columns:repeat(2,1fr)}
+    .kitchen-row{grid-template-columns:repeat(3,1fr)}
+    .ach-wrap{grid-template-columns:1fr}
+    .offer-grid{grid-template-columns:1fr}
+    .reg-grid{grid-template-columns:1fr}
+    .hero h1{font-size:32px}
+  }
+  @media(max-width:480px){
+    .nav{height:54px}
+    .brand .logo-img{height:30px}
+    .brand .name{font-size:15px}
+    .nav .cta{padding:7px 13px;font-size:13px}
+    .env-grid,.meal-grid,.cards{grid-template-columns:1fr}
+    .kitchen-row{grid-template-columns:repeat(2,1fr)}
+    .hero h1{font-size:26px}
+    .hero .wrap{padding-top:22px}
+    section .wrap{padding:32px 16px}
+    .sec-head h2{font-size:24px}
+    .env-item img{height:200px}
+    .food-card .shot{height:190px}
+    .btn{width:100%;text-align:center}
+    .hero .btns .btn{width:auto;flex:1}
+  }
+</style>
+</head>
+<body>
+
+<!-- 顶部 -->
+<header class="top">
+  <div class="wrap nav">
+    <a class="brand" href="#home">
+      <img class="logo-img" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/logo.jpg" alt="博识堂">
+      <span class="name">博识堂<em>·</em>托管 &amp; 文化课</span>
+    </a>
+    <ul>
+      <li><a href="#serv">服务</a></li>
+      <li><a href="#env">环境</a></li>
+      <li><a href="#meal">伙食</a></li>
+      <li><a href="#ach">喜报</a></li>
+      <li><a href="#promo">优惠</a></li>
+      <li><a href="javascript:void(0)" id="navBtnTop">到校</a></li>
+    </ul>
+    <a href="#signup" class="cta">立即报名</a>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero" id="home">
+  <div class="wrap">
+    <div class="hero-text">
+      <span class="kicker">旁邻八中 · 2026 秋季招生中</span>
+      <h1>托管 + 文化课<br><span>一次到位</span></h1>
+      <div class="slogan"><span>学生喜欢</span><span class="dot">·</span><span>家长信任</span><span class="en">STUDENTS LOVE · PARENTS TRUST</span></div>
+      <p class="sub">午托 · 晚托 · 晚自习 · 全托 · 文化课小班。有饭吃、有地自习、有老师答疑。</p>
+      <div class="badges">
+        <span>26届一二三中上线率 <b>93.4%</b></span>
+        <span>报文化课 送晚自习</span>
+        <span>校排大榜 免/半价托费</span>
+      </div>
+      <div class="btns">
+        <a href="#signup" class="btn solid">立即在线报名</a>
+        <a href="#promo" class="btn ghost">查看优惠</a>
+      </div>
+    </div>
+    <!-- Hero 2600 优惠卡（重点突出） -->
+    <a href="#promo" class="hero-offer" aria-label="查看2600送晚自习优惠">
+      <div class="ho-l">
+        <div class="ho-tag">2026 秋季主推</div>
+        <div class="ho-title">报一科文化课 → 送两个月晚自习</div>
+        <div class="ho-sub">数学 / 物理 / 英语 / 化学 · 一科 18 次课 · 晚自习到 20:30</div>
+      </div>
+      <div class="ho-r">
+        <div class="ho-price">¥<b>2600</b></div>
+        <div class="ho-unit">元 / 科 / 学期</div>
+        <div class="ho-more">查看详情 →</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- 地址条 -->
+<section class="hero" style="padding:0 0 8px;background:var(--cream)">
+  <div class="wrap">
+    <div class="loc-bar">
+      <span class="pin">📍</span>
+      <span class="loc-txt">校区地址：<b>八中往东70米 · 303车站旁</b></span>
+      <button class="nav-btn" id="navBtn" type="button">🧭 一键导航</button>
+    </div>
+  </div>
+</section>
+
+<!-- 服务 -->
+<section id="serv" class="serv">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="tag">SERVICES</span>
+      <h2>服务与价格</h2>
+      <p>托管 + 文化课一站搞定，价格透明。</p>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <h3>午托 / 晚饭</h3>
+        <div class="time">到点吃饭 · 家常口味</div>
+        <div class="price"><b>650</b><small>元/月</small> · 晚饭 <b>600</b><small>元/月</small></div>
+        <ul>
+          <li>午餐/晚餐 · 荤素搭配</li>
+          <li>放学就到 · 安心等待</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>晚自习</h3>
+        <div class="time">18:00–20:30 · 老师答疑</div>
+        <div class="price"><b>800–1000</b><small>元/月</small></div>
+        <ul>
+          <li>自主完成作业 · 不拖拉</li>
+          <li>老师当面答疑</li>
+        </ul>
+      </div>
+      <div class="card">
+        <span class="flag">主推</span>
+        <h3>全托</h3>
+        <div class="time">午 + 晚 + 晚自习</div>
+        <div class="price"><b>1600–1800</b><small>元/月</small></div>
+        <ul>
+          <li>吃饭、午休、作业、答疑全包</li>
+          <li>家长双职工也放心</li>
+        </ul>
+      </div>
+      <div class="card hot">
+        <span class="flag">送晚自习</span>
+        <h3>文化课</h3>
+        <div class="time">数 / 物 / 英 / 化 · 18 次/科</div>
+        <div class="price"><b>2600</b><small>元/科/学期</small></div>
+        <ul>
+          <li>小班授课 · 针对薄弱</li>
+          <li><b>送两个月晚自习</b></li>
+        </ul>
+      </div>
+    </div>
+    <p class="note">托管分初一 / 初二 / 初三定价</p>
+  </div>
+</section>
+
+<!-- 环境 -->
+<section id="env" class="env">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="tag">CAMPUS</span>
+      <h2>校区环境</h2>
+      <p>安静自习区 + 专业厨房，实拍带你看真实校区。</p>
+    </div>
+    <div class="video-card">
+      <span class="video-cap">▶ 一分钟看校区实景</span>
+      <video controls preload="metadata" poster="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/campus/1.jpg">
+        <source src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/video.mp4" type="video/mp4">
+        您的浏览器不支持视频播放，<a href="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/video.mp4" target="_blank" rel="noopener" style="color:#fff">点此直接观看</a>
+      </video>
+    </div>
+    <div class="env-grid">
+      <figure class="env-item"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/campus/1.jpg" alt="自习教室"><figcaption>自习教室</figcaption></figure>
+      <figure class="env-item"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/campus/2.jpg" alt="采光通透"><figcaption>采光通透</figcaption></figure>
+      <figure class="env-item"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/campus/3.jpg" alt="老师带班"><figcaption>老师带班</figcaption></figure>
+      <figure class="env-item"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/campus/4.jpg" alt="整洁环境"><figcaption>整洁环境</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- 伙食 -->
+<section id="meal" class="meal">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="tag">MEALS</span>
+      <h2>每日伙食</h2>
+      <p>三菜一汤，家常做法，明厨实拍。</p>
+    </div>
+    <div class="meal-grid">
+      <div class="food-card">
+        <img class="shot zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/food/1.jpg" alt="三菜一汤">
+        <div class="cap"><b>三菜一汤</b>荤素搭配</div>
+      </div>
+      <div class="food-card">
+        <img class="shot zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/food/2.jpg" alt="每日换样">
+        <div class="cap"><b>每日换样</b>营养可口</div>
+      </div>
+      <div class="food-card">
+        <img class="shot zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/food/3.jpg" alt="用心到嘴边">
+        <div class="cap"><b>用心到嘴边</b>孩子爱吃</div>
+      </div>
+    </div>
+    <div class="kitchen-row">
+      <img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/kitchen/1.jpg" alt="厨房">
+      <img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/kitchen/2.jpg" alt="厨房">
+      <img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/kitchen/3.jpg" alt="厨房">
+      <img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/kitchen/4.jpg" alt="厨房">
+      <img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/kitchen/5.jpg" alt="厨房">
+    </div>
+    <p class="kitchen-note">专业<b>明厨</b>操作，干净卫生，用料看得到。</p>
+  </div>
+</section>
+
+<!-- 喜报 -->
+<section id="ach" class="ach">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="tag">ACHIEVEMENT</span>
+      <h2>26届中考喜报</h2>
+      <p>用成绩说话。</p>
+    </div>
+    <div class="ach-wrap">
+      <figure class="ach-img">
+        <img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/exam/2.jpg" alt="26届中考喜报">
+      </figure>
+      <div>
+        <div class="stats">
+          <div class="stat wide"><div class="v">93.4%</div><div class="l">一二三中上线率</div></div>
+          <div class="stat"><div class="v">47</div><div class="l">总参考人数</div></div>
+          <div class="stat"><div class="v">22</div><div class="l">700 分以上</div></div>
+          <div class="stat"><div class="v">760</div><div class="l">最高分</div></div>
+          <div class="stat"><div class="v">3</div><div class="l">化学满分</div></div><div class="stat"><div class="v">2</div><div class="l">历史满分</div></div>
+        </div>
+        <p class="ach-note">* 26 届中考真实成绩 · 名单见喜报原图</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 优惠 -->
+<section id="promo" class="promo">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="tag">FALL SPECIAL</span>
+      <h2>2026 秋季优惠</h2>
+      <p>开学季让利，划算不复杂。</p>
+    </div>
+
+    <div class="offer-grid">
+      <div class="offer">
+        <div class="t"><span class="num">A</span><h3>托管开学季价</h3></div>
+        <p>基础托管价格透明，先接住孩子眼前的吃饭、作业、放学等问题。</p>
+        <div class="rows">
+          <div>午托 650 元/月 · 晚饭 600 元/月</div>
+          <div>晚自习 800–1000 元/月（分年级）</div>
+          <div>全托 <b>1600–1800</b> 元/月（分年级）</div>
+        </div>
+      </div>
+
+      <div class="offer">
+        <div class="t"><span class="num">B</span><h3>校排大榜奖励</h3></div>
+        <p>凭成绩说话，考得越好奖励越大。</p>
+        <div class="rows">
+          <div>年级前三名 → <b>免费</b>托管</div>
+          <div>年级前 50 名 → <b>半价</b>托管</div>
+          <div>年级前 100 名 → <b>8 折</b>托费</div>
+          <div style="color:#999">（以八中期中/期末排名为准 · 限在读学员）</div>
+        </div>
+      </div>
+
+      <div class="offer value">
+        <div class="t"><span class="num">C</span><h3>算得清的性价比</h3></div>
+        <p>报文化课把晚自习一起带上，一步到位。</p>
+        <div class="v-line"><span>单独买文化课 + 另买晚自习</span><span><s>约 5490–6390</s> 元/学期</span></div>
+        <div class="v-line"><span>报一科文化课（含送晚自习）</span><b>2600 元/学期</b></div>
+        <div class="v-line"><span>报两科文化课（含送晚自习）</span><b>5200 元/学期</b></div>
+        <div class="v-line"><span>两个月省下</span><b class="save">约 2890–3790 元</b></div>
+        <div class="cmp">* 按本机构家长常用组合测算</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 报名 -->
+<section id="signup" class="reg">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="tag">SIGN UP</span>
+      <h2>在线报名</h2>
+      <p>填表 · 扫码 · 加微信，怎么方便怎么来。</p>
+    </div>
+    <div class="reg-grid">
+      <div class="reg-info">
+        <h3>填个表，剩下的我们来</h3>
+        <p>到校参观 / 免费试一次午托都欢迎。</p>
+        <ul class="reg-points">
+          <li>托管 + 文化课，一站配齐</li>
+          <li>有饭吃、有地自习、有老师答疑</li>
+          <li>26 届中考一二三中上线率 93.4%</li>
+          <li>开学季：报文化课送两个月晚自习</li>
+        </ul>
+        <button class="nav-btn" id="navBtnReg" type="button" style="width:100%;margin-top:14px">🧭 一键导航到校</button>
+      </div>
+      <div class="reg-form">
+        <div class="embed-head">填写提交，报名信息实时直达博识堂</div>
+        <iframe src="https://jsjform.com/f/vSBon8" loading="lazy" title="博识堂在线报名表" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <div class="embed-fallback">打不开？<a href="https://jsjform.com/f/vSBon8" target="_blank" rel="noopener">点此在新窗口填写</a></div>
+      </div>
+    </div>
+    <div class="qr-row">
+      <div class="qr-card">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?data=https%3A%2F%2Fjsjform.com%2Ff%2FvSBon8&size=200x200" alt="在线报名二维码">
+        <div>扫码在线报名</div>
+      </div>
+      <div class="qr-card">
+        <img src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/wechat/1.jpg" alt="李老师微信">
+        <div>加李老师微信</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>📍 八中往东70米 · 303车站旁　|　© 2026 博识堂 · 托管 &amp; 文化课一站式　|　学生喜欢 · 家长信任<br><span style="font-size:12px;opacity:.7">👁 本页已被访问 <span id="busuanzi_value_page_pv">--</span> 次</span></footer>
+
+<!-- 图片放大 -->
+<div class="lb-mask" id="lbMask">
+  <button class="lb-close" id="lbClose" type="button">×</button>
+  <button class="lb-prev" id="lbPrev" type="button">‹</button>
+  <img id="lbImg" src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" alt="查看大图">
+  <button class="lb-next" id="lbNext" type="button">›</button>
+  <div class="lb-counter" id="lbCounter">1 / 1</div>
+  <div class="lb-tip">点击图片放大 · 左右滑动切换</div>
+</div>
+
+<!-- 导航选择弹层 -->
+<div class="nav-sheet-mask" id="navMask">
+  <div class="nav-sheet">
+    <h4>选择导航软件</h4>
+    <p class="nav-tip">手机装了哪个就用哪个 · 安卓点「系统地图」会列出你已安装的全部导航 App</p>
+    <div id="navList"></div>
+    <button class="nav-close" id="navClose" type="button">取消</button>
+  </div>
+</div>
+<script>
+(function(){
+  var ADDR = "三河市燕郊开发区行宫东大街南阳光商住楼B019号";
+  var enc = encodeURIComponent(ADDR);
+  var ua = navigator.userAgent || "";
+  var isIOS = /iphone|ipad|ipod/i.test(ua);
+  var isAndroid = /android/i.test(ua);
+  var apps = [
+    {name:"高德地图", sub:"Amap", emoji:"🟢", url:"https://uri.amap.com/search?keyword="+enc+"&src=boxuetang&callnative=1"},
+    {name:"百度地图", sub:"Baidu", emoji:"🔵", url:"https://api.map.baidu.com/direction?destination="+enc+"&mode=driving&region="+encodeURIComponent("三河市")+"&output=html&src=boxuetang"},
+    {name:"腾讯地图", sub:"Tencent", emoji:"🔷", url:"https://apis.map.qq.com/uri/v1/routeplan?type=drive&to="+enc+"&referer=boxuetang"}
+  ];
+  if(isAndroid){
+    apps.push({name:"系统地图（选其他导航）", sub:"调起手机已装的导航App", emoji:"📱", url:"geo:0,0?q="+enc});
+  } else if(isIOS){
+    apps.push({name:"Apple 地图", sub:"系统地图", emoji:"🍎", url:"https://maps.apple.com/?q="+enc});
+  } else {
+    apps.push({name:"系统地图", sub:"Geo", emoji:"📍", url:"geo:0,0?q="+enc});
+  }
+  var btn = document.getElementById("navBtn");
+  var mask = document.getElementById("navMask");
+  var list = document.getElementById("navList");
+  function render(){
+    list.innerHTML = "";
+    apps.forEach(function(a){
+      var el = document.createElement("a");
+      el.className = "nav-opt";
+      el.href = a.url; el.target = "_blank"; el.rel = "noopener";
+      el.innerHTML = '<span class="nav-emoji">'+a.emoji+'</span><span class="nav-meta"><b>'+a.name+'</b><i>'+a.sub+'</i></span><span class="nav-arrow">›</span>';
+      list.appendChild(el);
+    });
+  }
+  function openSheet(){ render(); mask.classList.add("show"); }
+  function closeSheet(){ mask.classList.remove("show"); }
+  [btn, document.getElementById("navBtnTop"), document.getElementById("navBtnReg")].forEach(function(b){ if(b) b.addEventListener("click", openSheet); });
+  if(mask) mask.addEventListener("click", function(e){ if(e.target===mask) closeSheet(); });
+  var cb = document.getElementById("navClose");
+  if(cb) cb.addEventListener("click", closeSheet);
+})();
+
+// 图片点击放大 + 左右切换
+(function(){
+  var mask = document.getElementById("lbMask");
+  var img = document.getElementById("lbImg");
+  var close = document.getElementById("lbClose");
+  var prev = document.getElementById("lbPrev");
+  var next = document.getElementById("lbNext");
+  var counter = document.getElementById("lbCounter");
+  if(!mask || !img) return;
+
+  var groups = {};
+  var current = null;
+
+  function groupOf(el){
+    if(el.closest(".env-grid")) return "env";
+    if(el.closest(".meal-grid")) return "food";
+    if(el.closest(".kitchen-row")) return "kitchen";
+    if(el.closest(".ach-img")) return "ach";
+    return "other";
+  }
+  document.querySelectorAll(".zoomable").forEach(function(el){
+    var g = groupOf(el);
+    if(!groups[g]) groups[g] = [];
+    groups[g].push(el);
+  });
+
+  function show(g, i){
+    var arr = groups[g];
+    if(!arr || !arr.length) return;
+    current = {g: g, i: i};
+    var el = arr[i];
+    img.src = el.currentSrc || el.src;
+    img.classList.remove("zoomed");
+    counter.textContent = (i + 1) + " / " + arr.length;
+    mask.classList.add("show");
+  }
+  function hide(){ mask.classList.remove("show"); current = null; }
+  function step(d){
+    if(!current) return;
+    var arr = groups[current.g];
+    var i = (current.i + d + arr.length) % arr.length;
+    show(current.g, i);
+  }
+
+  document.querySelectorAll(".zoomable").forEach(function(el){
+    el.addEventListener("click", function(){
+      var g = groupOf(el);
+      show(g, groups[g].indexOf(el));
+    });
+  });
+
+  if(prev) prev.addEventListener("click", function(e){ e.stopPropagation(); step(-1); });
+  if(next) next.addEventListener("click", function(e){ e.stopPropagation(); step(1); });
+  if(close) close.addEventListener("click", hide);
+
+  img.addEventListener("click", function(e){
+    e.stopPropagation();
+    img.classList.toggle("zoomed");
+  });
+
+  var startX = 0, startY = 0;
+  mask.addEventListener("touchstart", function(e){
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+  }, {passive:true});
+  mask.addEventListener("touchend", function(e){
+    var dx = e.changedTouches[0].clientX - startX;
+    var dy = e.changedTouches[0].clientY - startY;
+    if(Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) step(dx < 0 ? 1 : -1);
+  }, {passive:true});
+
+  mask.addEventListener("click", function(e){ if(e.target === mask) hide(); });
+})();
+</script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
+</html>

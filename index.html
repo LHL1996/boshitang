@@ -644,6 +644,9 @@
   function show(g, i){
     var arr = groups[g];
     if(!arr || !arr.length) return;
+    if(!mask.classList.contains("show")){
+      try{ history.pushState({lb:1}, ""); }catch(e){}
+    }
     current = {g: g, i: i};
     var el = arr[i];
     img.src = el.currentSrc || el.src;
@@ -651,7 +654,14 @@
     counter.textContent = (i + 1) + " / " + arr.length;
     mask.classList.add("show");
   }
-  function hide(){ mask.classList.remove("show"); current = null; }
+  function hideNow(){ mask.classList.remove("show"); current = null; }
+  function hide(){
+    if(history.state && history.state.lb){ history.back(); }
+    else{ hideNow(); }
+  }
+  window.addEventListener("popstate", function(){
+    if(mask.classList.contains("show")) hideNow();
+  });
   function step(d){
     if(!current) return;
     var arr = groups[current.g];

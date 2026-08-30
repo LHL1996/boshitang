@@ -112,24 +112,30 @@
   .bili-fs:hover{background:rgba(0,0,0,.75)}
   .bili-fs.fs-active{background:var(--green)}
   .video-cap{display:block;text-align:center;font-size:12px;color:var(--ink-2);padding:8px 0 2px;letter-spacing:.5px;pointer-events:none}
-  .exam-cover{width:100%;max-width:720px;margin:12px auto 0;border-radius:12px;overflow:hidden;box-shadow:var(--shadow);display:block}
-  .exam-cover img{width:100%;display:block;object-fit:cover}
-  .env-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-  .env-item{position:relative;border-radius:var(--radius);overflow:hidden;cursor:zoom-in}
-  .env-item img{width:100%;height:200px;object-fit:cover;transition:transform .4s}
-  .env-item:hover img{transform:scale(1.05)}
-  .env-item figcaption{position:absolute;left:0;right:0;bottom:0;padding:24px 10px 8px;background:linear-gradient(transparent,rgba(15,128,73,.85));color:#fff;font-size:13px;font-weight:600}
+  /* ===== 图片轮播 ===== */
+  .carousel{position:relative;max-width:760px;margin:0 auto}
+  .carousel-viewport{position:relative;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-lg);background:#000;aspect-ratio:4/3}
+  .carousel-track{display:flex;height:100%;transition:transform .45s ease}
+  .carousel-slide{position:relative;flex:0 0 100%;height:100%;cursor:zoom-in;animation:carFade .4s ease}
+  .carousel-slide img{width:100%;height:100%;object-fit:cover;display:block}
+  .carousel-slide figcaption{position:absolute;left:0;right:0;bottom:0;padding:28px 12px 10px;background:linear-gradient(transparent,rgba(0,0,0,.72));color:#fff;font-size:14px;font-weight:600;text-align:center;pointer-events:none}
+  .carousel-btn{position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.22);color:#fff;font-size:26px;line-height:1;border:none;cursor:pointer;z-index:5;display:flex;align-items:center;justify-content:center;padding:0;transition:background .2s}
+  .carousel-btn:hover{background:rgba(255,255,255,.4)}
+  .carousel-prev{left:10px}
+  .carousel-next{right:10px}
+  .carousel-dots{display:flex;justify-content:center;gap:7px;padding:12px 0 2px}
+  .carousel-dots button{width:8px;height:8px;border-radius:50%;border:none;background:var(--green-tint-2);cursor:pointer;padding:0;transition:all .25s}
+  .carousel-dots button.on{background:var(--green);width:22px;border-radius:5px}
+  .carousel-thumbs{display:flex;gap:8px;overflow-x:auto;padding:12px 2px 4px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .carousel-thumbs::-webkit-scrollbar{display:none}
+  .carousel-thumbs img{width:60px;height:60px;object-fit:cover;border-radius:8px;cursor:pointer;opacity:.5;border:2px solid transparent;transition:all .2s;flex:none;background:#eee}
+  .carousel-thumbs img.on{opacity:1;border-color:var(--green)}
+  @keyframes carFade{from{opacity:0}to{opacity:1}}
 
   /* ===== 厨房环境（重点） ===== */
   .kitchen{background:#fff}
   .kitchen-intro{text-align:center;max-width:600px;margin:0 auto 24px;font-size:15px;color:var(--ink-2);line-height:1.8}
   .kitchen-intro b{color:var(--green-2)}
-  .kitchen-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-  .kitchen-item{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);cursor:zoom-in}
-  .kitchen-item img{width:100%;height:200px;object-fit:cover;transition:transform .4s}
-  .kitchen-item:hover img{transform:scale(1.05)}
-  .kitchen-item .cap{padding:10px 14px;font-size:14px;color:var(--ink-2);background:#fff}
-  .kitchen-item .cap b{color:var(--green-2);font-weight:800}
   .kitchen-badge{
     display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:20px;
   }
@@ -140,11 +146,6 @@
 
   /* ===== 伙食 ===== */
   .meal{background:var(--cream)}
-  .meal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-  .food-card{border-radius:var(--radius);overflow:hidden;background:#fff;box-shadow:var(--shadow);cursor:zoom-in}
-  .food-card .shot{width:100%;height:180px;object-fit:cover}
-  .food-card .cap{padding:10px 14px;font-size:14px;color:var(--ink-2)}
-  .food-card .cap b{color:var(--green-2);font-weight:800;margin-right:4px}
 
   /* ===== 报名 ===== */
   .reg{background:#fff}
@@ -202,9 +203,6 @@
   /* ===== 响应式 ===== */
   @media(max-width:880px){
     .nav ul{display:none}
-    .env-grid{grid-template-columns:repeat(2,1fr)}
-    .kitchen-grid{grid-template-columns:repeat(2,1fr)}
-    .meal-grid{grid-template-columns:repeat(2,1fr)}
     .reg-grid{grid-template-columns:1fr}
     .hero h1{font-size:30px}
   }
@@ -213,14 +211,10 @@
     .brand .logo-img{height:30px}
     .brand .name{font-size:15px}
     .nav .cta{padding:7px 13px;font-size:13px}
-    .env-grid,.kitchen-grid,.meal-grid{grid-template-columns:1fr}
     .hero h1{font-size:24px}
     .hero .wrap{padding-top:22px}
     section .wrap{padding:32px 16px}
     .sec-head h2{font-size:24px}
-    .env-item img{height:200px}
-    .kitchen-item img{height:200px}
-    .food-card .shot{height:200px}
     .btn{width:100%;text-align:center}
     .hero .btns .btn{width:auto;flex:1}
     .loc-bar{flex-wrap:wrap;gap:8px;text-align:center}
@@ -311,13 +305,28 @@
       </div>
       <span class="video-cap">一分钟看校区实景</span>
     </div>
-    <div class="env-grid">
-      <figure class="env-item"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/campus/1.jpg" alt="自习教室"><figcaption>自习教室 · 安静专注</figcaption></figure>
-      <figure class="env-item"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/campus/2.jpg" alt="采光通透"><figcaption>采光通透 · 宽敞明亮</figcaption></figure>
-      <figure class="env-item"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/campus/3.jpg" alt="老师带班"><figcaption>老师带班 · 实时关注</figcaption></figure>
-      <figure class="env-item"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/campus/4.jpg" alt="整洁环境"><figcaption>整洁环境 · 每日消毒</figcaption></figure>
-      <figure class="env-item"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/campus/5.jpg" alt="校区一角"><figcaption>校区一角 · 安静舒适</figcaption></figure>
-      <figure class="env-item"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/campus/6.jpg" alt="课后活动"><figcaption>课后活动 · 快乐成长</figcaption></figure>
+    <div class="carousel" data-group="env">
+      <div class="carousel-viewport">
+        <div class="carousel-track">
+          <figure class="carousel-slide"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/campus/1.jpg" alt="自习教室"><figcaption>自习教室 · 安静专注</figcaption></figure>
+          <figure class="carousel-slide"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/campus/2.jpg" alt="采光通透"><figcaption>采光通透 · 宽敞明亮</figcaption></figure>
+          <figure class="carousel-slide"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/campus/3.jpg" alt="老师带班"><figcaption>老师带班 · 实时关注</figcaption></figure>
+          <figure class="carousel-slide"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/campus/4.jpg" alt="整洁环境"><figcaption>整洁环境 · 每日消毒</figcaption></figure>
+          <figure class="carousel-slide"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/campus/5.jpg" alt="校区一角"><figcaption>校区一角 · 安静舒适</figcaption></figure>
+          <figure class="carousel-slide"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/campus/6.jpg" alt="课后活动"><figcaption>课后活动 · 快乐成长</figcaption></figure>
+        </div>
+        <button class="carousel-btn carousel-prev" type="button" aria-label="上一张">‹</button>
+        <button class="carousel-btn carousel-next" type="button" aria-label="下一张">›</button>
+      </div>
+      <div class="carousel-dots"></div>
+      <div class="carousel-thumbs">
+        <img src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/campus/1.jpg" alt="自习教室">
+        <img src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/campus/2.jpg" alt="采光通透">
+        <img src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/campus/3.jpg" alt="老师带班">
+        <img src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/campus/4.jpg" alt="整洁环境">
+        <img src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/campus/5.jpg" alt="校区一角">
+        <img src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/campus/6.jpg" alt="课后活动">
+      </div>
     </div>
   </div>
 </section>
@@ -334,26 +343,25 @@
       <b>专业明厨操作</b>，设备齐全，每日清洁消毒。<br>
       食材当天采购，三菜一汤，家常做法，<b>孩子爱吃、家长放心</b>。
     </div>
-    <div class="kitchen-grid">
-      <div class="kitchen-item">
-        <img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/kitchen/1.jpg" alt="明厨">
-        <div class="cap"><b>明厨操作</b> · 干净卫生</div>
+    <div class="carousel" data-group="kitchen">
+      <div class="carousel-viewport">
+        <div class="carousel-track">
+          <figure class="carousel-slide"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/kitchen/1.jpg" alt="明厨"><figcaption>明厨操作 · 干净卫生</figcaption></figure>
+          <figure class="carousel-slide"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/kitchen/2.jpg" alt="厨房设备"><figcaption>设备齐全 · 规范操作</figcaption></figure>
+          <figure class="carousel-slide"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/kitchen/3.jpg" alt="每日现做"><figcaption>每日现做 · 新鲜食材</figcaption></figure>
+          <figure class="carousel-slide"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/kitchen/4.jpg" alt="厨房环境"><figcaption>整洁亮堂 · 每日消毒</figcaption></figure>
+          <figure class="carousel-slide"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/kitchen/5.jpg" alt="明厨亮灶"><figcaption>明厨亮灶 · 随时参观</figcaption></figure>
+        </div>
+        <button class="carousel-btn carousel-prev" type="button" aria-label="上一张">‹</button>
+        <button class="carousel-btn carousel-next" type="button" aria-label="下一张">›</button>
       </div>
-      <div class="kitchen-item">
-        <img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/kitchen/2.jpg" alt="厨房设备">
-        <div class="cap"><b>设备齐全</b> · 规范操作</div>
-      </div>
-      <div class="kitchen-item">
-        <img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/kitchen/3.jpg" alt="每日现做">
-        <div class="cap"><b>每日现做</b> · 新鲜食材</div>
-      </div>
-      <div class="kitchen-item">
-        <img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/kitchen/4.jpg" alt="厨房环境">
-        <div class="cap"><b>整洁亮堂</b> · 每日消毒</div>
-      </div>
-      <div class="kitchen-item">
-        <img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/kitchen/5.jpg" alt="明厨亮灶">
-        <div class="cap"><b>明厨亮灶</b> · 随时参观</div>
+      <div class="carousel-dots"></div>
+      <div class="carousel-thumbs">
+        <img src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/kitchen/1.jpg" alt="明厨">
+        <img src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/kitchen/2.jpg" alt="厨房设备">
+        <img src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/kitchen/3.jpg" alt="每日现做">
+        <img src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/kitchen/4.jpg" alt="厨房环境">
+        <img src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/kitchen/5.jpg" alt="明厨亮灶">
       </div>
     </div>
     <div class="kitchen-badge">
@@ -373,18 +381,21 @@
       <h2>每日伙食实拍</h2>
       <p>三菜一汤，家常做法，孩子吃得香，家长才放心。</p>
     </div>
-    <div class="meal-grid">
-      <div class="food-card">
-        <img class="shot zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/food/1.jpg" alt="三菜一汤">
-        <div class="cap"><b>三菜一汤</b>荤素搭配</div>
+    <div class="carousel" data-group="food">
+      <div class="carousel-viewport">
+        <div class="carousel-track">
+          <figure class="carousel-slide"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/food/1.jpg" alt="三菜一汤"><figcaption>三菜一汤 · 荤素搭配</figcaption></figure>
+          <figure class="carousel-slide"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/food/2.jpg" alt="每日换样"><figcaption>每日换样 · 营养可口</figcaption></figure>
+          <figure class="carousel-slide"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/food/3.jpg" alt="用心到嘴边"><figcaption>用心到嘴边 · 孩子爱吃</figcaption></figure>
+        </div>
+        <button class="carousel-btn carousel-prev" type="button" aria-label="上一张">‹</button>
+        <button class="carousel-btn carousel-next" type="button" aria-label="下一张">›</button>
       </div>
-      <div class="food-card">
-        <img class="shot zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/food/2.jpg" alt="每日换样">
-        <div class="cap"><b>每日换样</b>营养可口</div>
-      </div>
-      <div class="food-card">
-        <img class="shot zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/food/3.jpg" alt="用心到嘴边">
-        <div class="cap"><b>用心到嘴边</b>孩子爱吃</div>
+      <div class="carousel-dots"></div>
+      <div class="carousel-thumbs">
+        <img src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/food/1.jpg" alt="三菜一汤">
+        <img src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/food/2.jpg" alt="每日换样">
+        <img src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/food/3.jpg" alt="用心到嘴边">
       </div>
     </div>
   </div>
@@ -404,9 +415,6 @@
       <iframe src="https://player.bilibili.com/player.html?bvid=BV1h14X6iEge&page=1&high_quality=1" frameborder="0" scrolling="no" border="0" framespacing="0" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen="true" allow="autoplay; fullscreen; encrypted-media" style="width:100%;height:100%"></iframe>
     </div>
     <span class="video-cap" style="text-align:center;display:block;margin-top:8px;color:var(--ink-2);font-size:13px">2026中考大捷实录</span>
-    <a class="exam-cover" href="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/exam/cover.jpg" target="_blank" rel="noopener">
-      <img src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/exam/cover.jpg" alt="中考大捷喜报" loading="lazy">
-    </a>
   </div>
 </section>
 
@@ -418,15 +426,32 @@
       <h2>家长赠送锦旗</h2>
       <p>每一份认可，都是我们前行的动力。</p>
     </div>
-    <div class="env-grid" id="jinqi-grid">
-      <figure class="env-item"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/锦旗/1.jpg" alt="锦旗1"><figcaption>家长心意</figcaption></figure>
-      <figure class="env-item"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/锦旗/2.jpg" alt="锦旗2"><figcaption>家长心意</figcaption></figure>
-      <figure class="env-item"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/锦旗/3.jpg" alt="锦旗3"><figcaption>家长心意</figcaption></figure>
-      <figure class="env-item"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/锦旗/4.jpg" alt="锦旗4"><figcaption>家长心意</figcaption></figure>
-      <figure class="env-item"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/锦旗/5.jpg" alt="锦旗5"><figcaption>家长心意</figcaption></figure>
-      <figure class="env-item"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/锦旗/6.jpg" alt="锦旗6"><figcaption>家长心意</figcaption></figure>
-      <figure class="env-item"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/锦旗/7.jpg" alt="锦旗7"><figcaption>家长心意</figcaption></figure>
-      <figure class="env-item"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/锦旗/8.jpg" alt="锦旗8"><figcaption>家长心意</figcaption></figure>
+    <div class="carousel" data-group="jinqi">
+      <div class="carousel-viewport">
+        <div class="carousel-track">
+          <figure class="carousel-slide"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/锦旗/1.jpg" alt="锦旗1"><figcaption>家长心意</figcaption></figure>
+          <figure class="carousel-slide"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/锦旗/2.jpg" alt="锦旗2"><figcaption>家长心意</figcaption></figure>
+          <figure class="carousel-slide"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/锦旗/3.jpg" alt="锦旗3"><figcaption>家长心意</figcaption></figure>
+          <figure class="carousel-slide"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/锦旗/4.jpg" alt="锦旗4"><figcaption>家长心意</figcaption></figure>
+          <figure class="carousel-slide"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/锦旗/5.jpg" alt="锦旗5"><figcaption>家长心意</figcaption></figure>
+          <figure class="carousel-slide"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/锦旗/6.jpg" alt="锦旗6"><figcaption>家长心意</figcaption></figure>
+          <figure class="carousel-slide"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/锦旗/7.jpg" alt="锦旗7"><figcaption>家长心意</figcaption></figure>
+          <figure class="carousel-slide"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/锦旗/8.jpg" alt="锦旗8"><figcaption>家长心意</figcaption></figure>
+        </div>
+        <button class="carousel-btn carousel-prev" type="button" aria-label="上一张">‹</button>
+        <button class="carousel-btn carousel-next" type="button" aria-label="下一张">›</button>
+      </div>
+      <div class="carousel-dots"></div>
+      <div class="carousel-thumbs">
+        <img src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/锦旗/1.jpg" alt="锦旗1">
+        <img src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/锦旗/2.jpg" alt="锦旗2">
+        <img src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/锦旗/3.jpg" alt="锦旗3">
+        <img src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/锦旗/4.jpg" alt="锦旗4">
+        <img src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/锦旗/5.jpg" alt="锦旗5">
+        <img src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/锦旗/6.jpg" alt="锦旗6">
+        <img src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/锦旗/7.jpg" alt="锦旗7">
+        <img src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/锦旗/8.jpg" alt="锦旗8">
+      </div>
     </div>
   </div>
 </section>
@@ -439,19 +464,40 @@
       <h2>少年心声墙</h2>
       <p>孩子们最想说的话，字字真诚。</p>
     </div>
-    <div class="env-grid" id="xinsheng-grid">
-      <figure class="env-item"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/心声墙/1.jpg" alt="心声1"><figcaption>我想说</figcaption></figure>
-      <figure class="env-item"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/心声墙/2.jpg" alt="心声2"><figcaption>我想说</figcaption></figure>
-      <figure class="env-item"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/心声墙/3.jpg" alt="心声3"><figcaption>我想说</figcaption></figure>
-      <figure class="env-item"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/心声墙/4.jpg" alt="心声4"><figcaption>我想说</figcaption></figure>
-      <figure class="env-item"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/心声墙/5.jpg" alt="心声5"><figcaption>我想说</figcaption></figure>
-      <figure class="env-item"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/心声墙/6.jpg" alt="心声6"><figcaption>我想说</figcaption></figure>
-      <figure class="env-item"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/心声墙/7.jpg" alt="心声7"><figcaption>我想说</figcaption></figure>
-      <figure class="env-item"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/心声墙/8.jpg" alt="心声8"><figcaption>我想说</figcaption></figure>
-      <figure class="env-item"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/心声墙/9.jpg" alt="心声9"><figcaption>我想说</figcaption></figure>
-      <figure class="env-item"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/心声墙/10.jpg" alt="心声10"><figcaption>我想说</figcaption></figure>
-      <figure class="env-item"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/心声墙/11.jpg" alt="心声11"><figcaption>我想说</figcaption></figure>
-      <figure class="env-item"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/心声墙/12.jpg" alt="心声12"><figcaption>我想说</figcaption></figure>
+    <div class="carousel" data-group="xinsheng">
+      <div class="carousel-viewport">
+        <div class="carousel-track">
+          <figure class="carousel-slide"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/心声墙/1.jpg" alt="心声1"><figcaption>我想说</figcaption></figure>
+          <figure class="carousel-slide"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/心声墙/2.jpg" alt="心声2"><figcaption>我想说</figcaption></figure>
+          <figure class="carousel-slide"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/心声墙/3.jpg" alt="心声3"><figcaption>我想说</figcaption></figure>
+          <figure class="carousel-slide"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/心声墙/4.jpg" alt="心声4"><figcaption>我想说</figcaption></figure>
+          <figure class="carousel-slide"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/心声墙/5.jpg" alt="心声5"><figcaption>我想说</figcaption></figure>
+          <figure class="carousel-slide"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/心声墙/6.jpg" alt="心声6"><figcaption>我想说</figcaption></figure>
+          <figure class="carousel-slide"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/心声墙/7.jpg" alt="心声7"><figcaption>我想说</figcaption></figure>
+          <figure class="carousel-slide"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/心声墙/8.jpg" alt="心声8"><figcaption>我想说</figcaption></figure>
+          <figure class="carousel-slide"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/心声墙/9.jpg" alt="心声9"><figcaption>我想说</figcaption></figure>
+          <figure class="carousel-slide"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/心声墙/10.jpg" alt="心声10"><figcaption>我想说</figcaption></figure>
+          <figure class="carousel-slide"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/心声墙/11.jpg" alt="心声11"><figcaption>我想说</figcaption></figure>
+          <figure class="carousel-slide"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/心声墙/12.jpg" alt="心声12"><figcaption>我想说</figcaption></figure>
+        </div>
+        <button class="carousel-btn carousel-prev" type="button" aria-label="上一张">‹</button>
+        <button class="carousel-btn carousel-next" type="button" aria-label="下一张">›</button>
+      </div>
+      <div class="carousel-dots"></div>
+      <div class="carousel-thumbs">
+        <img src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/心声墙/1.jpg" alt="心声1">
+        <img src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/心声墙/2.jpg" alt="心声2">
+        <img src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/心声墙/3.jpg" alt="心声3">
+        <img src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/心声墙/4.jpg" alt="心声4">
+        <img src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/心声墙/5.jpg" alt="心声5">
+        <img src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/心声墙/6.jpg" alt="心声6">
+        <img src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/心声墙/7.jpg" alt="心声7">
+        <img src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/心声墙/8.jpg" alt="心声8">
+        <img src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/心声墙/9.jpg" alt="心声9">
+        <img src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/心声墙/10.jpg" alt="心声10">
+        <img src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/心声墙/11.jpg" alt="心声11">
+        <img src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/心声墙/12.jpg" alt="心声12">
+      </div>
     </div>
   </div>
 </section>
@@ -571,12 +617,8 @@
   var current = null;
 
   function groupOf(el){
-    if(el.closest("#jinqi-grid")) return "jinqi";
-    if(el.closest("#xinsheng-grid")) return "xinsheng";
-    if(el.closest(".env-grid")) return "env";
-    if(el.closest(".kitchen-grid")) return "kitchen";
-    if(el.closest(".meal-grid")) return "food";
-    return "other";
+    var car = el.closest('[data-group]');
+    return car ? car.getAttribute('data-group') : "other";
   }
   document.querySelectorAll(".zoomable").forEach(function(el){
     var g = groupOf(el);
@@ -596,8 +638,9 @@
     img.classList.remove("zoomed");
     counter.textContent = (i + 1) + " / " + arr.length;
     mask.classList.add("show");
+    document.body.classList.add("lb-open");
   }
-  function hideNow(){ mask.classList.remove("show"); current = null; }
+  function hideNow(){ mask.classList.remove("show"); document.body.classList.remove("lb-open"); current = null; }
   function hide(){
     if(history.state && history.state.lb){ history.back(); }
     else{ hideNow(); }
@@ -640,6 +683,73 @@
   }, {passive:true});
 
   mask.addEventListener("click", function(e){ if(e.target === mask) hide(); });
+})();
+
+// 图片轮播
+(function(){
+  var AUTOPLAY = 4000;
+  document.querySelectorAll('.carousel').forEach(function(car){
+    var track = car.querySelector('.carousel-track');
+    var slides = Array.prototype.slice.call(car.querySelectorAll('.carousel-slide'));
+    var dotsBox = car.querySelector('.carousel-dots');
+    var thumbs = car.querySelectorAll('.carousel-thumbs img');
+    var prevBtn = car.querySelector('.carousel-prev');
+    var nextBtn = car.querySelector('.carousel-next');
+    if(!track || !slides.length) return;
+
+    var idx = 0, n = slides.length, timer = null;
+
+    slides.forEach(function(s){ s.style.display = 'none'; });
+    slides[idx].style.display = 'block';
+
+    var dots = [];
+    for(var i = 0; i < n; i++){
+      (function(j){
+        var d = document.createElement('button');
+        d.type = 'button';
+        d.setAttribute('aria-label', '第' + (j + 1) + '张');
+        d.addEventListener('click', function(){ stop(); go(j); });
+        dotsBox.appendChild(d);
+        dots.push(d);
+      })(i);
+    }
+
+    function go(i){
+      idx = (i + n) % n;
+      slides.forEach(function(s){ s.style.display = 'none'; });
+      slides[idx].style.display = 'block';
+      dots.forEach(function(d, j){ d.classList.toggle('on', j === idx); });
+      thumbs.forEach(function(t, j){ t.classList.toggle('on', j === idx); });
+      var th = thumbs[idx];
+      if(th && th.scrollIntoView){
+        try{ th.scrollIntoView({block:'nearest', inline:'center', behavior:'smooth'}); }
+        catch(e){ th.scrollIntoView(); }
+      }
+    }
+    function stop(){ if(timer){ clearInterval(timer); timer = null; } }
+    function start(){
+      stop();
+      if(document.body.classList.contains('lb-open')) return;
+      timer = setInterval(function(){ go(idx + 1); }, AUTOPLAY);
+    }
+
+    if(prevBtn) prevBtn.addEventListener('click', function(){ stop(); go(idx - 1); });
+    if(nextBtn) nextBtn.addEventListener('click', function(){ stop(); go(idx + 1); });
+    thumbs.forEach(function(t, j){ t.addEventListener('click', function(){ stop(); go(j); }); });
+
+    car.addEventListener('mouseenter', stop);
+    car.addEventListener('mouseleave', start);
+    car.addEventListener('touchstart', stop, {passive:true});
+
+    // 灯箱打开时暂停自动播放
+    new MutationObserver(function(){
+      if(document.body.classList.contains('lb-open')) stop();
+      else if(timer === null) start();
+    }).observe(document.body, {attributes:true, attributeFilter:['class']});
+
+    go(0);
+    start();
+  });
 })();
 
 // 视频互斥播放：一个视频播放时自动暂停其他

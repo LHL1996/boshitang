@@ -4,7 +4,7 @@
 
   var ADMIN_KEY = 'bst_admin';
   var GH_KEY = 'bst_gh';
-  var ADMIN_PASSWORD = 'admin888'; /* 测试期管理密码，上线后请自行修改 */
+  var ADMIN_PASSWORD = '123456';
   var REPO_BASE = 'student/';      /* 系统部署在仓库的 student/ 子目录，后台写回也需落在该目录下 */
 
   var $ = function (id) { return document.getElementById(id); };

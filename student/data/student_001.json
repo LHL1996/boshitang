@@ -1,0 +1,56 @@
+{
+  "studentId": "001",
+  "name": "张三",
+  "grade": "初三",
+  "subject": "数学",
+  "avatar": "images/students/001/avatar.jpg",
+  "regDate": "2026-08-18",
+  "dailyScores": [
+    { "date": "2026-08-17", "type": "午练", "subject": "数学", "score": 84, "fullMark": 100 },
+    { "date": "2026-08-17", "type": "晚练", "subject": "数学", "score": 80, "fullMark": 100 },
+    { "date": "2026-08-18", "type": "午练", "subject": "数学", "score": 86, "fullMark": 100 },
+    { "date": "2026-08-18", "type": "晚练", "subject": "数学", "score": 82, "fullMark": 100 },
+    { "date": "2026-08-19", "type": "午练", "subject": "数学", "score": 88, "fullMark": 100 },
+    { "date": "2026-08-19", "type": "晚练", "subject": "数学", "score": 84, "fullMark": 100 },
+    { "date": "2026-08-24", "type": "午练", "subject": "数学", "score": 92, "fullMark": 100 },
+    { "date": "2026-08-24", "type": "晚练", "subject": "数学", "score": 88, "fullMark": 100 },
+    { "date": "2026-08-25", "type": "午练", "subject": "数学", "score": 90, "fullMark": 100 },
+    { "date": "2026-08-25", "type": "晚练", "subject": "数学", "score": 86, "fullMark": 100 },
+    { "date": "2026-08-26", "type": "午练", "subject": "数学", "score": 94, "fullMark": 100 },
+    { "date": "2026-08-26", "type": "晚练", "subject": "数学", "score": 91, "fullMark": 100 },
+    { "date": "2026-08-27", "type": "午练", "subject": "数学", "score": 89, "fullMark": 100 },
+    { "date": "2026-08-27", "type": "晚练", "subject": "数学", "score": 85, "fullMark": 100 },
+    { "date": "2026-08-28", "type": "午练", "subject": "数学", "score": 93, "fullMark": 100 },
+    { "date": "2026-08-28", "type": "晚练", "subject": "数学", "score": 90, "fullMark": 100 },
+    { "date": "2026-08-29", "type": "午练", "subject": "数学", "score": 95, "fullMark": 100 },
+    { "date": "2026-08-29", "type": "晚练", "subject": "数学", "score": 92, "fullMark": 100 }
+  ],
+  "exams": [
+    {
+      "date": "2026-08-20",
+      "name": "第一次月考",
+      "subjects": [
+        { "subject": "数学", "score": 95, "classRank": 3, "gradeRank": 10 }
+      ],
+      "paperPhotos": ["images/students/001/exam1.jpg"]
+    },
+    {
+      "date": "2026-08-05",
+      "name": "入学摸底测试",
+      "subjects": [
+        { "subject": "数学", "score": 88, "classRank": 6, "gradeRank": 22 }
+      ],
+      "paperPhotos": ["images/students/001/exam1.jpg"]
+    }
+  ],
+  "comments": [
+    { "date": "2026-08-29", "teacher": "王老师", "content": "本周状态稳定，函数与几何部分答题规范，午练成绩稳步提升，继续保持。", "photos": [] },
+    { "date": "2026-08-25", "teacher": "王老师", "content": "最近状态不错，计算准确率提高了，月考排名进步明显。", "photos": [] },
+    { "date": "2026-08-20", "teacher": "李老师", "content": "初次月考完成得不错，基础扎实，应用题审题还需再细心一些。", "photos": [] }
+  ],
+  "photos": [
+    { "url": "images/students/001/photo1.jpg", "caption": "课堂数学解题练习", "date": "2026-08-26" },
+    { "url": "images/students/001/photo2.jpg", "caption": "白板几何演算", "date": "2026-08-24" },
+    { "url": "images/students/001/photo1.jpg", "caption": "每周综合练习", "date": "2026-08-22" }
+  ]
+}

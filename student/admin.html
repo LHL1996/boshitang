@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#4F6EF7">
+  <title>管理后台 - 博识堂学生成长档案</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="app-body">
+
+  <header class="app-header">
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <img src="logo.jpg" alt="博识堂" class="nav-logo">
+        <span>管理后台</span>
+      </div>
+      <div class="nav-actions">
+        <a href="index.html" class="btn-logout link-btn">学生端</a>
+        <button id="logoutBtn" class="btn-logout hidden">退出</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="admin-container">
+
+    <!-- ============ 登录 / 配置 ============ -->
+    <section id="setupPanel" class="card">
+      <h3 class="panel-title">后台登录与连接设置</h3>
+
+      <form id="loginForm" class="admin-form">
+        <div class="field">
+          <label for="adminPass">管理端密码</label>
+          <input type="password" id="adminPass" placeholder="请输入管理密码" autocomplete="off">
+        </div>
+        <p class="form-hint" id="loginHint"></p>
+        <button type="submit" class="btn-primary btn-block">登录后台</button>
+      </form>
+
+      <div id="connForm" class="conn-form hidden">
+        <p class="conn-title">GitHub 连接（用于把数据写回仓库）</p>
+        <div class="field">
+          <label for="ghOwner">GitHub 用户名 / 组织</label>
+          <input type="text" id="ghOwner" placeholder="例如 yourname">
+        </div>
+        <div class="field">
+          <label for="ghRepo">仓库名</label>
+          <input type="text" id="ghRepo" placeholder="例如 student-growth" autocomplete="off">
+        </div>
+        <div class="field">
+          <label for="ghBranch">分支</label>
+          <input type="text" id="ghBranch" placeholder="main 或 gh-pages" value="main">
+        </div>
+        <div class="field">
+          <label for="ghToken">GitHub Token（Personal Access Token）</label>
+          <input type="password" id="ghToken" placeholder="ghp_xxx 或 github_pat_xxx" autocomplete="off">
+        </div>
+        <div class="login-options">
+          <label class="checkbox-label">
+            <input type="checkbox" id="rememberConn" checked>
+            <span class="checkmark"></span>
+            <span>记住连接设置（本地保存）</span>
+          </label>
+        </div>
+        <p class="form-hint">Token 只需仓库读写权限，仅存于你浏览器本地，不会上传到任何服务器。</p>
+        <button type="button" id="testConnBtn" class="btn-primary btn-block btn-outline">测试连接并进入管理</button>
+      </div>
+    </section>
+
+    <!-- ============ 主工作区 ============ -->
+    <section id="workspace" class="hidden">
+
+      <div class="tab-bar" id="tabBar">
+        <button class="tab-btn active" data-tab="students">学生账号</button>
+        <button class="tab-btn" data-tab="archive">档案编辑</button>
+        <button class="tab-btn" data-tab="photos">照片上传</button>
+      </div>
+
+      <!-- 学生账号管理 -->
+      <section class="card tab-panel" id="tab-students">
+        <div class="card-head">
+          <h3>学生账号（data/students.json）</h3>
+          <button class="btn-primary btn-sm" id="addStudentRow">+ 新增学生</button>
+        </div>
+        <div class="table-scroll">
+          <table id="studentsTable">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>姓名</th>
+                <th>密码</th>
+                <th>年级</th>
+                <th>科目</th>
+                <th>数据文件</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody id="studentsTbody">
+              <tr><td colspan="7" class="empty-cell">尚未加载</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="panel-actions">
+          <button class="btn-primary" id="saveStudentsBtn">保存学生账号</button>
+          <button class="btn-ghost" id="reloadStudentsBtn">重新加载</button>
+        </div>
+      </section>
+
+      <!-- 档案编辑 -->
+      <section class="card tab-panel hidden" id="tab-archive">
+        <div class="card-head">
+          <h3>学生档案编辑</h3>
+        </div>
+        <div class="field">
+          <label for="archStudent">选择学生</label>
+          <select id="archStudent"></select>
+        </div>
+        <div class="field" id="archLoadBtnWrap">
+          <button class="btn-ghost" id="archLoadBtn">加载该学生档案</button>
+        </div>
+
+        <div id="archiveEditor" class="hidden">
+          <!-- 基本信息 -->
+          <h4 class="sub-head">基本信息</h4>
+          <div class="form-grid">
+            <div class="field"><label>姓名</label><input id="edName"></div>
+            <div class="field"><label>年级</label><input id="edGrade"></div>
+            <div class="field"><label>科目</label><input id="edSubject"></div>
+            <div class="field"><label>建档日期</label><input id="edRegDate" placeholder="YYYY-MM-DD"></div>
+            <div class="field field-wide"><label>头像路径</label><input id="edAvatar" placeholder="images/students/001/avatar.jpg"></div>
+          </div>
+
+          <!-- 午晚练成绩 -->
+          <h4 class="sub-head">午练 / 晚练成绩 <button class="btn-ghost btn-xs" id="addScoreBtn">+ 添加一天</button></h4>
+          <div class="table-scroll"><table id="scoresTable">
+            <thead><tr><th>日期</th><th>类型</th><th>科目</th><th>分数</th><th>满分</th><th></th></tr></thead>
+            <tbody id="scoresTbody"></tbody>
+          </table></div>
+
+          <!-- 考试记录 -->
+          <h4 class="sub-head">考试成绩 <button class="btn-ghost btn-xs" id="addExamBtn">+ 添加考试</button></h4>
+          <div id="examsWrap"></div>
+
+          <!-- 老师评语 -->
+          <h4 class="sub-head">老师评语 <button class="btn-ghost btn-xs" id="addCommentBtn">+ 添加评语</button></h4>
+          <div id="commentsWrap"></div>
+
+          <!-- 成长相册 -->
+          <h4 class="sub-head">成长相册 <button class="btn-ghost btn-xs" id="addPhotoBtn">+ 添加照片</button></h4>
+          <div id="photosWrap"></div>
+
+          <div class="panel-actions">
+            <button class="btn-primary" id="saveArchiveBtn">保存档案</button>
+            <button class="btn-ghost" id="reloadArchiveBtn">放弃修改重新载入</button>
+          </div>
+        </div>
+
+        <div id="archiveEmpty" class="form-hint hidden">暂无可用学生档案，请先在“学生账号”中添加。</div>
+      </section>
+
+      <!-- 照片上传 -->
+      <section class="card tab-panel hidden" id="tab-photos">
+        <div class="card-head"><h3>照片上传到仓库</h3></div>
+        <div class="field"><label>选择学生</label><select id="photoStudent"></select></div>
+        <div class="field">
+          <label>选择图片（可多选，jpg/png）</label>
+          <input type="file" id="photoFiles" accept="image/jpeg,image/png" multiple>
+        </div>
+        <div class="field">
+          <label>目标文件名前缀（可选）</label>
+          <input id="photoPrefix" placeholder="留空则用原名，例：photo1">
+        </div>
+        <button class="btn-primary" id="uploadPhotosBtn">上传到 images/students/{ID}/</button>
+        <div id="uploadResult" class="upload-result"></div>
+      </section>
+
+    </section>
+  </main>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>

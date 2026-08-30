@@ -1,0 +1,56 @@
+{
+  "studentId": "002",
+  "name": "李四",
+  "grade": "初二",
+  "subject": "英语",
+  "avatar": "images/students/002/avatar.jpg",
+  "regDate": "2026-08-15",
+  "dailyScores": [
+    { "date": "2026-08-17", "type": "午练", "subject": "英语", "score": 80, "fullMark": 100 },
+    { "date": "2026-08-17", "type": "晚练", "subject": "英语", "score": 78, "fullMark": 100 },
+    { "date": "2026-08-18", "type": "午练", "subject": "英语", "score": 82, "fullMark": 100 },
+    { "date": "2026-08-18", "type": "晚练", "subject": "英语", "score": 80, "fullMark": 100 },
+    { "date": "2026-08-19", "type": "午练", "subject": "英语", "score": 83, "fullMark": 100 },
+    { "date": "2026-08-19", "type": "晚练", "subject": "英语", "score": 81, "fullMark": 100 },
+    { "date": "2026-08-24", "type": "午练", "subject": "英语", "score": 85, "fullMark": 100 },
+    { "date": "2026-08-24", "type": "晚练", "subject": "英语", "score": 83, "fullMark": 100 },
+    { "date": "2026-08-25", "type": "午练", "subject": "英语", "score": 86, "fullMark": 100 },
+    { "date": "2026-08-25", "type": "晚练", "subject": "英语", "score": 84, "fullMark": 100 },
+    { "date": "2026-08-26", "type": "午练", "subject": "英语", "score": 87, "fullMark": 100 },
+    { "date": "2026-08-26", "type": "晚练", "subject": "英语", "score": 86, "fullMark": 100 },
+    { "date": "2026-08-27", "type": "午练", "subject": "英语", "score": 85, "fullMark": 100 },
+    { "date": "2026-08-27", "type": "晚练", "subject": "英语", "score": 84, "fullMark": 100 },
+    { "date": "2026-08-28", "type": "午练", "subject": "英语", "score": 88, "fullMark": 100 },
+    { "date": "2026-08-28", "type": "晚练", "subject": "英语", "score": 87, "fullMark": 100 },
+    { "date": "2026-08-29", "type": "午练", "subject": "英语", "score": 89, "fullMark": 100 },
+    { "date": "2026-08-29", "type": "晚练", "subject": "英语", "score": 88, "fullMark": 100 }
+  ],
+  "exams": [
+    {
+      "date": "2026-08-20",
+      "name": "第一次月考",
+      "subjects": [
+        { "subject": "英语", "score": 90, "classRank": 4, "gradeRank": 15 }
+      ],
+      "paperPhotos": ["images/students/002/exam1.jpg"]
+    },
+    {
+      "date": "2026-08-06",
+      "name": "入学摸底测试",
+      "subjects": [
+        { "subject": "英语", "score": 82, "classRank": 8, "gradeRank": 30 }
+      ],
+      "paperPhotos": ["images/students/002/exam1.jpg"]
+    }
+  ],
+  "comments": [
+    { "date": "2026-08-29", "teacher": "陈老师", "content": "本周词汇掌握扎实，听力进步明显，课内表现越来越自信。", "photos": [] },
+    { "date": "2026-08-25", "teacher": "陈老师", "content": "阅读理解和完形填空正确率提高，继续保持晨读习惯。", "photos": [] },
+    { "date": "2026-08-19", "teacher": "林老师", "content": "起步基础不错，语法细节还需要加强练习。", "photos": [] }
+  ],
+  "photos": [
+    { "url": "images/students/002/photo1.jpg", "caption": "英语课文朗读", "date": "2026-08-27" },
+    { "url": "images/students/002/photo2.jpg", "caption": "课堂笔记整理", "date": "2026-08-25" },
+    { "url": "images/students/002/photo1.jpg", "caption": "口语小组练习", "date": "2026-08-23" }
+  ]
+}

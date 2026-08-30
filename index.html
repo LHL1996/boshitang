@@ -108,18 +108,6 @@
   .video-card{position:relative;border-radius:18px;overflow:hidden;box-shadow:var(--shadow-lg);margin-bottom:20px;background:#000;border:1.5px solid rgba(15,128,73,.12)}
   .bili-wrap{position:relative;width:100%;aspect-ratio:16/9;max-height:460px}
   .bili-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
-  .video-cover{position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#000;cursor:pointer}
-  .video-cover .play-btn{
-    width:64px;height:64px;border-radius:50%;border:0;cursor:pointer;position:relative;
-    background:rgba(15,128,73,.92);box-shadow:0 4px 16px rgba(0,0,0,.35);transition:transform .2s;
-    display:flex;align-items:center;justify-content:center;
-  }
-  .video-cover .play-btn:active{transform:scale(.92)}
-  .video-cover .play-btn::after{
-    content:"";display:block;width:0;height:0;transform:translateX(3px);
-    border-left:22px solid #fff;border-top:13px solid transparent;border-bottom:13px solid transparent;
-  }
-  .video-cover.loaded .play-btn::after{border-color:#fff}
   .video-cap{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.7));color:#fff;font-size:13px;padding:20px 14px 10px;font-weight:600;z-index:1;letter-spacing:.5px}
   .env-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
   .env-item{position:relative;border-radius:var(--radius);overflow:hidden;cursor:zoom-in}
@@ -229,8 +217,6 @@
     .kitchen-item img{height:200px}
     .food-card .shot{height:200px}
     .bili-wrap{max-height:240px}
-    .play-btn{width:44px;height:44px}
-    .play-btn::after{border-width:7px 0 7px 12px}
     .btn{width:100%;text-align:center}
     .hero .btns .btn{width:auto;flex:1}
     .loc-bar{flex-wrap:wrap;gap:8px;text-align:center}
@@ -300,9 +286,7 @@
       <div class="trial-right">
         <span class="video-cap" style="position:absolute;top:10px;left:12px;z-index:1;background:rgba(0,0,0,.5);border-radius:20px;padding:4px 10px;font-size:12px">▶ 收心班日常</span>
         <div class="bili-wrap" style="border-radius:12px;overflow:hidden">
-          <div class="video-cover" data-vsrc="https://player.bilibili.com/player.html?bvid=BV1CB4Q6pE2J&autoplay=1&high_quality=1&danmaku=1" role="button" tabindex="0" aria-label="播放视频">
-            <button class="play-btn" type="button" aria-label="播放"></button>
-          </div>
+          <iframe src="https://player.bilibili.com/player.html?bvid=BV1CB4Q6pE2J&page=1&autoplay=0&high_quality=1" frameborder="0" scrolling="no" border="0" framespacing="0" allowfullscreen="true" allow="autoplay; fullscreen; encrypted-media" style="width:100%;height:100%"></iframe>
         </div>
       </div>
     </div>
@@ -320,9 +304,7 @@
     <div class="video-card">
       <span class="video-cap">▶ 一分钟看校区实景</span>
       <div class="bili-wrap">
-        <div class="video-cover" data-vsrc="https://player.bilibili.com/player.html?bvid=BV1ck4Q6SEvS&autoplay=1&high_quality=1&danmaku=1" role="button" tabindex="0" aria-label="播放视频">
-          <button class="play-btn" type="button" aria-label="播放"></button>
-        </div>
+        <iframe src="https://player.bilibili.com/player.html?bvid=BV1ck4Q6SEvS&page=1&autoplay=0&high_quality=1" frameborder="0" scrolling="no" border="0" framespacing="0" allowfullscreen="true" allow="autoplay; fullscreen; encrypted-media" style="width:100%;height:100%"></iframe>
       </div>
     </div>
     <div class="env-grid">
@@ -586,79 +568,33 @@
   mask.addEventListener("click", function(e){ if(e.target === mask) hide(); });
 })();
 
-// 视频播放：点击封面才加载播放，同一时间只允许一个视频播放
+// 视频互斥播放：一个视频播放时自动暂停其他
 (function(){
-  var covers = [].slice.call(document.querySelectorAll('.video-cover'));
-  if (!covers.length) return;
+  var iframes = document.querySelectorAll('.bili-wrap iframe');
+  if (!iframes.length) return;
 
-  var iframes = [];   // 已创建的 iframe 列表
+  var pausedIfames = new Set();
 
-  function makeIframe(src){
-    var f = document.createElement('iframe');
-    f.src = src;
-    f.setAttribute('allow','autoplay; fullscreen; encrypted-media; picture-in-picture');
-    f.setAttribute('allowfullscreen','allowfullscreen');
-    f.setAttribute('allowtransparency','true');
-    f.setAttribute('frameborder','0');
-    f.style.border = '0';
-    return f;
-  }
-
-  function post(f, msg){
-    try { if (f.contentWindow) f.contentWindow.postMessage(msg, '*'); } catch(e){}
-  }
   function pauseAll(except){
-    iframes.forEach(function(f){ if (f !== except) post(f, '{"type":"pause"}'); });
-  }
-
-  // 点击封面 → 载入 iframe 并直接播放
-  function load(cover){
-    var src = cover.getAttribute('data-vsrc');
-    if (!src) return;
-    var wrap = cover.parentNode;
-    var f = makeIframe(src);
-    iframes.push(f);
-    wrap.appendChild(f);
-    cover.style.display = 'none';
-    cover.classList.add('loaded');
-    f.addEventListener('load', function(){
-      pauseAll(f);
+    iframes.forEach(function(f){
+      if (f !== except) try { f.contentWindow.postMessage('{"type":"pause"}','*'); } catch(e){}
     });
   }
 
-  covers.forEach(function(c){
-    c.addEventListener('click', function(e){
-      e.preventDefault();
-      e.stopPropagation();
-      load(c);
-    });
-    c.addEventListener('keydown', function(e){
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); load(c); }
-    });
-  });
-
-  // 监听播放器发来的状态：某视频开始播放则暂停其他
+  // 监听播放器状态：开始播放时暂停其他
   window.addEventListener('message', function(e){
     try {
-      var d = (e.data && e.data.type === 'string') ? JSON.parse(e.data) : e.data;
-      var st = d && d.info && d.info.playState;
-      var sender = iframes.filter(function(f){ return f.contentWindow === e.source; })[0];
-      if (sender && st === 1) pauseAll(sender);
+      var d = typeof e.data === 'string' ? JSON.parse(e.data) : e.data;
+      if (!d || !d.info) return;
+      var state = d.info.playState;
+      var videoId = d.info.id;
+      var sender = null;
+      iframes.forEach(function(f){
+        try { if (f.contentWindow === e.source) sender = f; } catch(e){}
+      });
+      if (state === 1) pauseAll(sender);
     } catch(err) {}
   });
-
-  // 滚出屏幕 → 暂停（保留加载，便于返回时继续）
-  if ('IntersectionObserver' in window) {
-    var obs = new IntersectionObserver(function(entries){
-      entries.forEach(function(en){
-        if (en.isIntersecting) return;
-        var wrap = en.target;
-        var f = wrap.querySelector('iframe');
-        if (f) post(f, '{"type":"pause"}');
-      });
-    }, {threshold: 0});
-    covers.forEach(function(c){ obs.observe(c.parentNode); });
-  }
 })();
 </script>
 

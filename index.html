@@ -110,12 +110,6 @@
   .bili-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
   /* 视频未进入视口时隐藏，避免黑屏 */
   .bili-wrap iframe.hidden-video{display:none}
-  /* 播放按钮悬浮层 */
-  .play-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:2;pointer-events:none;opacity:0;transition:opacity .3s}
-  .video-card:hover .play-overlay{opacity:1}
-  .play-btn{width:56px;height:56px;border-radius:50%;background:rgba(15,163,99,.88);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(0,0,0,.35);transition:transform .2s}
-  .video-card:hover .play-btn{transform:scale(1.08)}
-  .play-btn::after{content:"";display:block;width:0;height:0;border-style:solid;border-width:9px 0 9px 16px;border-color:transparent transparent transparent #fff;margin-left:3px}
   .video-cap{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.7));color:#fff;font-size:13px;padding:20px 14px 10px;font-weight:600;z-index:1;letter-spacing:.5px}
   .env-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
   .env-item{position:relative;border-radius:var(--radius);overflow:hidden;cursor:zoom-in}
@@ -313,9 +307,8 @@
     </div>
     <div class="video-card">
       <span class="video-cap">▶ 一分钟看校区实景</span>
-      <div class="play-overlay"><div class="play-btn"></div></div>
       <div class="bili-wrap">
-        <iframe data-bili-src="https://player.bilibili.com/player.html?bvid=BV1ck4Q6SEvS&amp;autoplay=0&amp;high_quality=1" src="about:blank" class="hidden-video" allowfullscreen="allowfullscreen" style="border:0"></iframe>
+        <iframe data-bili-src="https://player.bilibili.com/player.html?bvid=BV1ck4Q6SEvS&autoplay=0&high_quality=1" src="about:blank" class="hidden-video" allowfullscreen="allowfullscreen" style="border:0"></iframe>
       </div>
     </div>
     <div class="env-grid">
@@ -616,7 +609,7 @@
         frame.classList.add('hidden-video');
       }
     });
-  }, { threshold: 0.15 });
+  }, { threshold: 0.3 });
 
   wraps.forEach(function(wrap) {
     observer.observe(wrap);

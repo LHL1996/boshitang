@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -108,7 +108,12 @@
   .video-card{position:relative;border-radius:18px;overflow:hidden;box-shadow:var(--shadow-lg);margin-bottom:20px;background:#000;border:1.5px solid rgba(15,128,73,.12)}
   .bili-wrap{position:relative;width:100%;aspect-ratio:3/4;max-height:520px;background:#000}
   .bili-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+  .bili-fs{position:absolute;top:8px;right:8px;z-index:3;background:rgba(0,0,0,.5);color:#fff;border:none;border-radius:6px;width:32px;height:32px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1}
+  .bili-fs:hover{background:rgba(0,0,0,.75)}
+  .bili-fs.fs-active{background:var(--green)}
   .video-cap{display:block;text-align:center;font-size:12px;color:var(--ink-2);padding:8px 0 2px;letter-spacing:.5px;pointer-events:none}
+  .exam-cover{width:100%;max-width:720px;margin:12px auto 0;border-radius:12px;overflow:hidden;box-shadow:var(--shadow);display:block}
+  .exam-cover img{width:100%;display:block;object-fit:cover}
   .env-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
   .env-item{position:relative;border-radius:var(--radius);overflow:hidden;cursor:zoom-in}
   .env-item img{width:100%;height:200px;object-fit:cover;transition:transform .4s}
@@ -394,10 +399,14 @@
       <h2>中考大捷</h2>
       <p>成绩是最好的证明，视频记录真实一刻。</p>
     </div>
-    <div class="bili-wrap" style="max-width:720px;margin:0 auto;border-radius:12px;overflow:hidden;box-shadow:var(--shadow-lg)">
-      <iframe src="https://player.bilibili.com/player.html?bvid=BV1h14X6iEge&page=1&high_quality=1" frameborder="0" scrolling="no" border="0" framespacing="0" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen="true" allow="autoplay; fullscreen; encrypted-media" style="width:100%;height:56.25vh;min-height:360px"></iframe>
+    <div class="bili-wrap" style="max-width:720px;margin:0 auto;border-radius:12px;overflow:hidden;box-shadow:var(--shadow-lg);aspect-ratio:16/9;max-height:none;background:#000">
+      <button class="bili-fs" type="button" title="全屏播放" aria-label="全屏">⛶</button>
+      <iframe src="https://player.bilibili.com/player.html?bvid=BV1h14X6iEge&page=1&high_quality=1" frameborder="0" scrolling="no" border="0" framespacing="0" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen="true" allow="autoplay; fullscreen; encrypted-media" style="width:100%;height:100%"></iframe>
     </div>
     <span class="video-cap" style="text-align:center;display:block;margin-top:8px;color:var(--ink-2);font-size:13px">2026中考大捷实录</span>
+    <a class="exam-cover" href="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/exam/cover.jpg" target="_blank" rel="noopener">
+      <img src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/exam/cover.jpg" alt="中考大捷喜报" loading="lazy">
+    </a>
   </div>
 </section>
 
@@ -409,7 +418,7 @@
       <h2>家长赠送锦旗</h2>
       <p>每一份认可，都是我们前行的动力。</p>
     </div>
-    <div class="env-grid">
+    <div class="env-grid" id="jinqi-grid">
       <figure class="env-item"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/锦旗/1.jpg" alt="锦旗1"><figcaption>家长心意</figcaption></figure>
       <figure class="env-item"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/锦旗/2.jpg" alt="锦旗2"><figcaption>家长心意</figcaption></figure>
       <figure class="env-item"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/锦旗/3.jpg" alt="锦旗3"><figcaption>家长心意</figcaption></figure>
@@ -430,7 +439,7 @@
       <h2>少年心声墙</h2>
       <p>孩子们最想说的话，字字真诚。</p>
     </div>
-    <div class="env-grid">
+    <div class="env-grid" id="xinsheng-grid">
       <figure class="env-item"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/心声墙/1.jpg" alt="心声1"><figcaption>我想说</figcaption></figure>
       <figure class="env-item"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/心声墙/2.jpg" alt="心声2"><figcaption>我想说</figcaption></figure>
       <figure class="env-item"><img class="zoomable" src="https://gcore.jsdelivr.net/gh/lhliang-lab/boxuetang-assets@master/心声墙/3.jpg" alt="心声3"><figcaption>我想说</figcaption></figure>
@@ -562,6 +571,8 @@
   var current = null;
 
   function groupOf(el){
+    if(el.closest("#jinqi-grid")) return "jinqi";
+    if(el.closest("#xinsheng-grid")) return "xinsheng";
     if(el.closest(".env-grid")) return "env";
     if(el.closest(".kitchen-grid")) return "kitchen";
     if(el.closest(".meal-grid")) return "food";
@@ -663,6 +674,28 @@
       if (state === 1) pauseAll(sender);
     } catch(err) {}
   });
+})();
+
+// 中考大捷视频全屏按钮
+(function(){
+  var btn = document.querySelector('#exam-video .bili-fs');
+  var wrap = document.querySelector('#exam-video .bili-wrap');
+  if(!btn || !wrap) return;
+
+  function fullscreen(el){
+    if(el.requestFullscreen) el.requestFullscreen();
+    else if(el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+    else if(el.msRequestFullscreen) el.msRequestFullscreen();
+  }
+  btn.addEventListener('click', function(e){
+    e.stopPropagation();
+    fullscreen(wrap);
+  });
+  function onFsChange(){
+    btn.classList.toggle('fs-active', !!(document.fullscreenElement || document.webkitFullscreenElement));
+  }
+  document.addEventListener('fullscreenchange', onFsChange);
+  document.addEventListener('webkitfullscreenchange', onFsChange);
 })();
 </script>
 

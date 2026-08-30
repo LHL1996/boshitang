@@ -744,6 +744,27 @@
 })();
 </script>
 
+<!-- 一个B站视频播放时，暂停其他所有B站视频 -->
+<script>
+(function(){
+  var frames = document.querySelectorAll('.bili-wrap iframe');
+  if (frames.length < 2) return;
+  window.addEventListener('message', function(e){
+    try {
+      if (e.data && e.data.cmd === 'play' && e.source) {
+        for (var i = 0; i < frames.length; i++) {
+          try {
+            if (frames[i].contentWindow && frames[i].contentWindow !== e.source) {
+              frames[i].contentWindow.postMessage({ cmd: "pause" }, "*");
+            }
+          } catch(ex) {}
+        }
+      }
+    } catch(ex) {}
+  });
+})();
+</script>
+
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 </body>
 </html>

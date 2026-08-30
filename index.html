@@ -108,8 +108,18 @@
   .video-card{position:relative;border-radius:18px;overflow:hidden;box-shadow:var(--shadow-lg);margin-bottom:20px;background:#000;border:1.5px solid rgba(15,128,73,.12)}
   .bili-wrap{position:relative;width:100%;aspect-ratio:16/9;max-height:460px}
   .bili-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
-  /* 视频未进入视口时隐藏，避免黑屏 */
-  .bili-wrap iframe.hidden-video{display:none}
+  .video-cover{position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#000;cursor:pointer}
+  .video-cover .play-btn{
+    width:64px;height:64px;border-radius:50%;border:0;cursor:pointer;position:relative;
+    background:rgba(15,128,73,.92);box-shadow:0 4px 16px rgba(0,0,0,.35);transition:transform .2s;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .video-cover .play-btn:active{transform:scale(.92)}
+  .video-cover .play-btn::after{
+    content:"";display:block;width:0;height:0;transform:translateX(3px);
+    border-left:22px solid #fff;border-top:13px solid transparent;border-bottom:13px solid transparent;
+  }
+  .video-cover.loaded .play-btn::after{border-color:#fff}
   .video-cap{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.7));color:#fff;font-size:13px;padding:20px 14px 10px;font-weight:600;z-index:1;letter-spacing:.5px}
   .env-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
   .env-item{position:relative;border-radius:var(--radius);overflow:hidden;cursor:zoom-in}
@@ -290,7 +300,9 @@
       <div class="trial-right">
         <span class="video-cap" style="position:absolute;top:10px;left:12px;z-index:1;background:rgba(0,0,0,.5);border-radius:20px;padding:4px 10px;font-size:12px">▶ 收心班日常</span>
         <div class="bili-wrap" style="border-radius:12px;overflow:hidden">
-          <iframe data-bili-src="https://player.bilibili.com/player.html?bvid=BV1CB4Q6pE2J&autoplay=0&high_quality=1" src="about:blank" class="hidden-video" allowfullscreen="allowfullscreen" style="border:0"></iframe>
+          <div class="video-cover" data-vsrc="https://player.bilibili.com/player.html?bvid=BV1CB4Q6pE2J&autoplay=1&high_quality=1&danmaku=1" role="button" tabindex="0" aria-label="播放视频">
+            <button class="play-btn" type="button" aria-label="播放"></button>
+          </div>
         </div>
       </div>
     </div>
@@ -308,7 +320,9 @@
     <div class="video-card">
       <span class="video-cap">▶ 一分钟看校区实景</span>
       <div class="bili-wrap">
-        <iframe data-bili-src="https://player.bilibili.com/player.html?bvid=BV1ck4Q6SEvS&autoplay=0&high_quality=1" src="about:blank" class="hidden-video" allowfullscreen="allowfullscreen" style="border:0"></iframe>
+        <div class="video-cover" data-vsrc="https://player.bilibili.com/player.html?bvid=BV1ck4Q6SEvS&autoplay=1&high_quality=1&danmaku=1" role="button" tabindex="0" aria-label="播放视频">
+          <button class="play-btn" type="button" aria-label="播放"></button>
+        </div>
       </div>
     </div>
     <div class="env-grid">
@@ -572,48 +586,79 @@
   mask.addEventListener("click", function(e){ if(e.target === mask) hide(); });
 })();
 
-// 视频滚动进入视口自动播放，滚出自动停播
+// 视频播放：点击封面才加载播放，同一时间只允许一个视频播放
 (function(){
-  var wraps = document.querySelectorAll('.bili-wrap');
-  if (!wraps.length) return;
+  var covers = [].slice.call(document.querySelectorAll('.video-cover'));
+  if (!covers.length) return;
 
-  if (!('IntersectionObserver' in window)) return;
+  var iframes = [];   // 已创建的 iframe 列表
 
-  // 先立即初始化所有视频的状态（避免页面刚加载时漏掉在视口内的视频）
-  wraps.forEach(function(wrap) {
-    var frame = wrap.querySelector('iframe');
-    if (!frame || !frame.dataset.biliSrc) return;
-    var rect = wrap.getBoundingClientRect();
-    var inView = rect.top < window.innerHeight * 0.85 && rect.bottom > 0;
-    if (inView) {
-      frame.src = frame.dataset.biliSrc;
-      frame.classList.remove('hidden-video');
-    } else {
-      frame.src = 'about:blank';
-      frame.classList.add('hidden-video');
-    }
-  });
+  function makeIframe(src){
+    var f = document.createElement('iframe');
+    f.src = src;
+    f.setAttribute('allow','autoplay; fullscreen; encrypted-media; picture-in-picture');
+    f.setAttribute('allowfullscreen','allowfullscreen');
+    f.setAttribute('allowtransparency','true');
+    f.setAttribute('frameborder','0');
+    f.style.border = '0';
+    return f;
+  }
 
-  var observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      var wrap = entry.target;
-      var frame = wrap.querySelector('iframe');
-      if (!frame || !frame.dataset.biliSrc) return;
-      if (entry.isIntersecting) {
-        // 进入视口：加载并播放
-        frame.src = frame.dataset.biliSrc;
-        frame.classList.remove('hidden-video');
-      } else {
-        // 滚出视口：停止播放，避免音频重叠
-        frame.src = 'about:blank';
-        frame.classList.add('hidden-video');
-      }
+  function post(f, msg){
+    try { if (f.contentWindow) f.contentWindow.postMessage(msg, '*'); } catch(e){}
+  }
+  function pauseAll(except){
+    iframes.forEach(function(f){ if (f !== except) post(f, '{"type":"pause"}'); });
+  }
+
+  // 点击封面 → 载入 iframe 并直接播放
+  function load(cover){
+    var src = cover.getAttribute('data-vsrc');
+    if (!src) return;
+    var wrap = cover.parentNode;
+    var f = makeIframe(src);
+    iframes.push(f);
+    wrap.appendChild(f);
+    cover.style.display = 'none';
+    cover.classList.add('loaded');
+    f.addEventListener('load', function(){
+      pauseAll(f);
     });
-  }, { threshold: 0.3 });
+  }
 
-  wraps.forEach(function(wrap) {
-    observer.observe(wrap);
+  covers.forEach(function(c){
+    c.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      load(c);
+    });
+    c.addEventListener('keydown', function(e){
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); load(c); }
+    });
   });
+
+  // 监听播放器发来的状态：某视频开始播放则暂停其他
+  window.addEventListener('message', function(e){
+    try {
+      var d = (e.data && e.data.type === 'string') ? JSON.parse(e.data) : e.data;
+      var st = d && d.info && d.info.playState;
+      var sender = iframes.filter(function(f){ return f.contentWindow === e.source; })[0];
+      if (sender && st === 1) pauseAll(sender);
+    } catch(err) {}
+  });
+
+  // 滚出屏幕 → 暂停（保留加载，便于返回时继续）
+  if ('IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (en.isIntersecting) return;
+        var wrap = en.target;
+        var f = wrap.querySelector('iframe');
+        if (f) post(f, '{"type":"pause"}');
+      });
+    }, {threshold: 0});
+    covers.forEach(function(c){ obs.observe(c.parentNode); });
+  }
 })();
 </script>
 

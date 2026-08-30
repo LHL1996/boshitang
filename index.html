@@ -697,7 +697,7 @@
     var nextBtn = car.querySelector('.carousel-next');
     if(!track || !slides.length) return;
 
-    var idx = 0, n = slides.length, timer = null;
+    var idx = 0, n = slides.length, timer = null, visible = false;
 
     slides.forEach(function(s){ s.style.display = 'none'; });
     slides[idx].style.display = 'block';
@@ -732,6 +732,7 @@
     function stop(){ if(timer){ clearInterval(timer); timer = null; } }
     function start(){
       stop();
+      if(!visible) return;
       if(document.body.classList.contains('lb-open')) return;
       timer = setInterval(function(){ go(idx + 1); }, AUTOPLAY);
     }
@@ -749,6 +750,14 @@
       if(document.body.classList.contains('lb-open')) stop();
       else if(timer === null) start();
     }).observe(document.body, {attributes:true, attributeFilter:['class']});
+
+    // 仅当滑动到该区块时才自动播放，离开视口即暂停
+    new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        visible = en.isIntersecting;
+        if(visible) start(); else stop();
+      });
+    }, {threshold: 0.3}).observe(car);
 
     go(0);
     start();

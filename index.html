@@ -720,10 +720,13 @@
       slides[idx].style.display = 'block';
       dots.forEach(function(d, j){ d.classList.toggle('on', j === idx); });
       thumbs.forEach(function(t, j){ t.classList.toggle('on', j === idx); });
-      var th = thumbs[idx];
-      if(th && th.scrollIntoView){
-        try{ th.scrollIntoView({block:'nearest', inline:'center', behavior:'smooth'}); }
-        catch(e){ th.scrollIntoView(); }
+      var thBox = car.querySelector('.carousel-thumbs');
+      if(thBox && thumbs[idx]){
+        var cw = thBox.clientWidth;
+        var tw = thumbs[idx].offsetWidth;
+        var left = thumbs[idx].offsetLeft - (cw - tw) / 2;
+        left = Math.max(0, Math.min(left, thBox.scrollWidth - cw));
+        thBox.scrollLeft = left;
       }
     }
     function stop(){ if(timer){ clearInterval(timer); timer = null; } }

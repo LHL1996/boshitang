@@ -26,11 +26,13 @@
   function init() {
     loadStudents().then(function (students) {
       var record = (students || []).find(function (s) { return String(s.id) === String(studentId); });
-      if (!record || !record.dataFile) {
+      if (!record) {
         location.href = 'index.html';
         return;
       }
-      return loadJSON(record.dataFile).then(function (data) { render(data); });
+      /* 未配置 dataFile 时，按 data/student_<id>.json 的默认约定加载，避免合法账号被误判为无效 */
+      var dataPath = record.dataFile || ('data/student_' + studentId + '.json');
+      return loadJSON(dataPath).then(function (data) { render(data); });
     }).catch(function () {
       location.href = 'index.html';
     });

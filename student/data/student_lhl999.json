@@ -6,7 +6,16 @@
   "regDate": "",
   "avatar": "",
   "dailyScores": [],
-  "exams": [],
+  "exams": [
+    {
+      "date": "午练",
+      "name": "物理测试",
+      "paperPhotos": [
+        "images/students/lhl999/lhl2026.8.31.png"
+      ],
+      "subjects": []
+    }
+  ],
   "comments": [],
   "photos": []
 }

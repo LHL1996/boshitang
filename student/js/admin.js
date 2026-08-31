@@ -334,6 +334,9 @@
   }
   function saveStudents() {
     collectStudents();
+    students.forEach(function (s) {
+      if (s.id && !s.dataFile) s.dataFile = 'data/student_' + String(s.id) + '.json';
+    });
     if (!students.length) { toast('学生列表为空，不能保存', true); return; }
     var btn = $('saveStudentsBtn');
     setBtn(btn, true, '保存中…');
@@ -386,10 +389,10 @@
     var chain = Promise.resolve();
     Array.prototype.forEach.call(files, function (file, i) {
       chain = chain.then(function () {
-        return readB64(file).then(function (b64) {
-          var fname = (prefix || stem(file.name)) + (files.length > 1 ? '_' + (i + 1) : '') + '.' + ext(file.name);
+        return compressAndEncode(file).then(function (res) {
+          var fname = (prefix || stem(file.name)) + (files.length > 1 ? '_' + (i + 1) : '') + '.' + (res.png ? 'png' : 'jpg');
           var path = 'images/students/' + id + '/' + fname;
-          return ghUpload(path, b64).then(function () { done.push(path); });
+          return ghUpload(path, res.b64).then(function () { done.push(path); });
         });
       });
     });
@@ -403,12 +406,38 @@
     }).catch(function (err) { toast(err.message, true); })
       .finally(function () { setBtn(btn, false, '上传到 images/students/{ID}/'); });
   }
-  function readB64(file) {
+  /* 图片压缩：最长边超过 maxDim 才压缩（照片能看清，不过度压），转 JPEG(透明PNG保留PNG) */
+  function compressImage(file, maxDim, quality) {
     return new Promise(function (resolve, reject) {
-      var fr = new FileReader();
-      fr.onload = function () { resolve(String(fr.result).split(',')[1]); };
-      fr.onerror = function () { reject(new Error('读取图片失败')); };
-      fr.readAsDataURL(file);
+      var url = URL.createObjectURL(file);
+      var img = new Image();
+      img.onload = function () {
+        var w = img.width, h = img.height;
+        var scale = Math.min(1, maxDim / Math.max(w, h));
+        var nw = Math.max(1, Math.round(w * scale)), nh = Math.max(1, Math.round(h * scale));
+        var canvas = document.createElement('canvas');
+        canvas.width = nw; canvas.height = nh;
+        var ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, nw, nh);
+        URL.revokeObjectURL(url);
+        var isPng = /\.png$/i.test(file.name);
+        canvas.toBlob(function (blob) {
+          if (!blob) { reject(new Error('图片压缩失败')); return; }
+          resolve({ blob: blob, png: isPng });
+        }, isPng ? 'image/png' : 'image/jpeg', quality);
+      };
+      img.onerror = function () { URL.revokeObjectURL(url); reject(new Error('读取图片失败')); };
+      img.src = url;
+    });
+  }
+  function compressAndEncode(file) {
+    return compressImage(file, 1600, 0.82).then(function (c) {
+      return new Promise(function (resolve, reject) {
+        var fr = new FileReader();
+        fr.onload = function () { resolve({ b64: String(fr.result).split(',')[1], png: c.png }); };
+        fr.onerror = function () { reject(new Error('读取图片失败')); };
+        fr.readAsDataURL(c.blob);
+      });
     });
   }
   function stem(name) { var m = /^(.*?)(\.\w+)?$/.exec(name || ''); return (m && m[1] ? m[1] : 'file').replace(/[^0-9a-zA-Z_-]/g, '_'); }

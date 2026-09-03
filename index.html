@@ -827,7 +827,26 @@
 })();
 </script>
 
-<script async="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+<script>LA.init({id:"3R5Ua7imYF5JSTq1",ck:"3R5Ua7imYF5JSTq1"})</script>
+<script>
+(function(){
+  var todayEl = document.getElementById("laToday");
+  var totalEl = document.getElementById("laTotal");
+  if(!todayEl || !totalEl) return;
+  fetch("https://v6-widget.51.la/v6/3R5Ua7imYF5JSTq1/quote.js")
+    .then(function(r){ return r.text(); })
+    .then(function(data){
+      var re = /<span>\d+<\/span><span>(\d+)<\/span>/g, m, nums = [];
+      while((m = re.exec(data)) !== null){ nums.push(m[1]); }
+      if(nums.length >= 7){
+        todayEl.textContent = nums[2];
+        totalEl.textContent = nums[6];
+      }
+    })
+    .catch(function(){});
+})();
+</script>
 
 
 
